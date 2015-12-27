@@ -1,11 +1,11 @@
 var gulp = require('gulp');
 var debug = require('gulp-debug');
 var gulpFilter = require('gulp-filter');
-var install 	= require('gulp-install');
-var rimraf 	= require('rimraf');
+var install  = require('gulp-install');
+var rimraf  = require('rimraf');
 var mainBowerFiles = require('main-bower-files');
 var runSequence = require('run-sequence');
-var minifyCss 	= require('gulp-minify-css');
+var nano = require('gulp-cssnano');
 
 var js_dest_path = 'assets/lib/js';
 var css_dest_path = 'assets/lib/css';
@@ -14,8 +14,9 @@ var jsFilter = gulpFilter('*.js',{restore : true});
 var cssFilter = gulpFilter(['*.css','*.css.map'], {restore : true});
 var fontFilter = gulpFilter(['*.eot', '*.svg', '*.ttf', '*.woff*'], {restore : true});
 
-gulp.task('clean', function() { 
-	rimraf(js_dest_path, function(){});
+gulp.task('clean', function() {
+'use strict';
+    rimraf(js_dest_path, function(){});
 	rimraf(css_dest_path, function(){});
     rimraf(font_dest_path, function(){});
 
@@ -46,13 +47,13 @@ gulp.task('exportBowerFiles',function(callback){
     // handle about font
 	.pipe(fontFilter)
         .pipe(gulp.dest(font_dest_path))
-        .pipe(fontFilter.restore)
+        .pipe(fontFilter.restore);
 });
 
 gulp.task('debug',function(callback){
     return gulp.src(mainBowerFiles())
     .pipe(debug())
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest(''));
 
 });
 gulp.task('build',function(callback){

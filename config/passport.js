@@ -42,6 +42,7 @@ module.exports = function(passport) {
                     photo: profile.photos[0].value,
                     gender: profile.gender,
                     provider: profile.provider,
+                    isRegCompletely: false,
                     created: Date.now()
                 });
                 StoreUser.save(function(err) {

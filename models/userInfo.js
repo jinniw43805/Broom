@@ -17,7 +17,7 @@ module.exports = mongoose.model('User', new Schema({
     photo: String,
     gender: String,
     provider: String,
-
+    isRegCompletely: Boolean,
     created: String
 
 }));

@@ -17,18 +17,25 @@
         <!-- /#page-wrapper -->
 
     </div>
-<!--     <main>
-        <div class="jumbotron">
-        <p><%= tagline %></p>
+
         <strong><%= user  %></strong><br>
-        <p>Welcome to templating using EJS</p>
-        </div>
-    </main>
- -->
+
     <footer>
         <% include footer %>
     </footer>
     
 </body>
-<% include jsLoader %>
+
+
+    <% include data-loader%> 
+
+
+<!-- Public Javascript -->
+<script src="assets/lib/js/jquery.js"></script>
+<script src="assets/lib/js/bootstrap.js"></script>
+<script src="assets/lib/js/js.cookie.js"></script>
+
+
+<script src="public/dashboard/javascript/dashboard.js"></script>
+
 </html>
