@@ -34,19 +34,19 @@ router.get('/error', function(req, res, next) {
 router.get('/test', function(req, res, next) {
 	  res.render("testpadejs");
 });
-
-router.get('views/helloejs',function(req,res,next) {
-	res.render('views/helloejs');
-});
-
+router.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
 module.exports = router;
 
 function isLoggedIn(req, res, next) {
-
+	console.log("req.isAuthenticated"+req.isAuthenticated());
 	// if user is authenticated in the session, carry on
 	if (req.isAuthenticated())
 		return next();
-
+	else{
 	// if they aren't redirect them to the home page
 	res.redirect('/');
+	}
 }

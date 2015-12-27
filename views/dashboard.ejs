@@ -5,37 +5,35 @@
 <head>
     <% include head %>
 </head>
-<body class="container">
+<body>
     
     <div id="wrapper">
 
         <% include navigation %>
 
         <% include page-wrapper %>
-
-        </div>
         <!-- /#page-wrapper -->
-
     </div>
 
-        <strong><%= user  %></strong><br>
+    <strong><%= user  %></strong><br>
 
     <footer>
         <% include footer %>
+
     </footer>
     
-</body>
+    <% include dialog %>
 
 
     <% include data-loader%> 
 
 
-<!-- Public Javascript -->
-<script src="assets/lib/js/jquery.js"></script>
-<script src="assets/lib/js/bootstrap.js"></script>
-<script src="assets/lib/js/js.cookie.js"></script>
+    <!-- Public Javascript -->
+    <script src="assets/lib/js/jquery.js"></script>
+    <script src="assets/lib/js/bootstrap.js"></script>
+    <script src="assets/lib/js/js.cookie.js"></script>
 
 
-<script src="public/dashboard/javascript/dashboard.js"></script>
-
+    <script src="public/dashboard/javascript/dashboard.js"></script>
+</body>
 </html>
