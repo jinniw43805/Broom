@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var router = express.Router();
 var util = require('util');
+var userApi = require('../src/userApi');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index.html');
@@ -20,6 +21,7 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook', {
 }));
 
 router.get('/success',isLoggedIn ,function(req, res, next){
+	res.cookie('fbuid',req.user.oauthID, { maxAge: 900000, httpOnly: true });
 	  res.render('dashboard', {
 	  	user : req.user,
 	  	isRegCompletely : req.user.isRegCompletely,
@@ -33,6 +35,12 @@ router.get('/error', function(req, res, next) {
 
 router.get('/test', function(req, res, next) {
 	  res.render("testpadejs");
+});
+router.post('/completeData', function(req, res, next) {
+	// console.log(req.body);
+	// console.log(req.cookies);
+	userApi.setUserCompleteInfo(req.body,req.cookies.fbuid);
+	res.redirect('/success');
 });
 router.get('/logout', function(req, res) {
         req.logout();

@@ -24,6 +24,7 @@
     "gulp-minify-css": "^1.2.1",
     "handlebars": "^4.0.5",
     "jade": "~1.11.0",
+    "jquery-deferred": "^0.3.0",
     "main-bower-files": "^2.9.0",
     "mongodb-uri": "^0.9.7",
     "mongoose": "^4.2.3",

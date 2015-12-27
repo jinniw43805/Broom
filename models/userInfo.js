@@ -18,6 +18,10 @@ module.exports = mongoose.model('User', new Schema({
     gender: String,
     provider: String,
     isRegCompletely: Boolean,
+    university: String,
+    uni_department: String,
+    graduation: String,
+    gra_department: String,
+    contributeVal: Number,
     created: String
-
 }));
