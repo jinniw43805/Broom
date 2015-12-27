@@ -7,7 +7,6 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <img src=<%=user.photo%> alt="" class="img-circle profile_img" style="height:46px;">
         <a class="navbar-brand" href="index.html">COCO NUT</a>
     </div>
     <!-- Top Menu Items -->
@@ -116,7 +115,32 @@
     </ul>
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
+
         <ul class="nav navbar-nav side-nav">
+            <li>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <img src=<%=user.photo%> alt="" class="img-circle profile_img img-center" style="height:70px ; margin-left: 25px;">
+
+<!--                      <strong>John Smith</strong>
+                        <span class="pull-right text-muted">
+                            <em>Today</em>
+                        </span>
+                    </div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing.
+                        <br />
+                        <span class="label label-primary">Important</span>  -->
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                         <a class="btn btn-success btn-xs btn-circle" style="width: 10px;height: 12px; "></a> <a><%= user.university%></a>
+                         <br>
+                         <a><%= user.uni_department%></a>
+                    </div>
+                </div>
+
+            </li>
+            <li class="divider"></li>
+
             <li class="active">
                 <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
