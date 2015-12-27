@@ -1,5 +1,6 @@
 var express = require('express');
 var passport = require('passport');
+var promise = require('jquery-deferred');
 var router = express.Router();
 var util = require('util');
 var userApi = require('../src/userApi');
@@ -39,8 +40,11 @@ router.get('/test', function(req, res, next) {
 router.post('/completeData', function(req, res, next) {
 	// console.log(req.body);
 	// console.log(req.cookies);
-	userApi.setUserCompleteInfo(req.body,req.cookies.fbuid);
-	res.redirect('/success');
+	var Api= userApi.setUserCompleteInfo(req.body,req.cookies.fbuid);
+		promise.when(Api).done(function(){
+		res.redirect('/success');
+
+	});
 });
 router.get('/logout', function(req, res) {
         req.logout();
