@@ -52,8 +52,7 @@ gulp.task('exportBowerFiles',function(callback){
 
 gulp.task('debug',function(callback){
     return gulp.src(mainBowerFiles())
-    .pipe(debug())
-    .pipe(gulp.dest(''));
+    .pipe(debug());
 
 });
 gulp.task('build',function(callback){

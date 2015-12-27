@@ -12,5 +12,7 @@ $(document).ready(function() {
     }());
 
 
-
+    hello = function (){
+        console.log("helloworld");
+    };
 });
