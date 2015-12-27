@@ -6,9 +6,11 @@ $(document).ready(function() {
         }else{
             console.log("showReg");
             $('#myModal').modal('toggle');
+            $('#example').tooltip(options)
+
         }
     }());
 
 
-    
+
 });

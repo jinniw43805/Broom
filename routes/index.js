@@ -37,6 +37,14 @@ router.get('/error', function(req, res, next) {
 router.get('/test', function(req, res, next) {
 	  res.render("testpadejs");
 });
+
+router.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
+
+
+
 router.post('/completeData', function(req, res, next) {
 	// console.log(req.body);
 	// console.log(req.cookies);
@@ -46,10 +54,18 @@ router.post('/completeData', function(req, res, next) {
 
 	});
 });
-router.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
+
+router.post('/addNewCourse',function(req, res, next) {
+
+});
+
+
+router.post('/addNewNote',function(req, res, next) {
+	
+});
+
+
+
 module.exports = router;
 
 function isLoggedIn(req, res, next) {
@@ -61,4 +77,7 @@ function isLoggedIn(req, res, next) {
 	// if they aren't redirect them to the home page
 	res.redirect('/');
 	}
+}
+function isRegCompletelyRight(req, res, next) {
+	
 }

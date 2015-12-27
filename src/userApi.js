@@ -30,10 +30,28 @@ function setUserCompleteInfo(data,userID,deferred){
 
 }
 
+function getIsRegCompletely(userID,deferred){
+
+}
+
+function setIsRegCompletely(boolean,userID,deferred){
+
+}
 module.exports = {
     setUserCompleteInfo: function(data,userID){
         var deferred = new promise.Deferred();
         setUserCompleteInfo(data,userID,deferred);
         return deferred;
+    },
+    getIsRegCompletely: function(userID){
+        var deferred = new promise.Deferred();
+
+        return deferred;
+    },
+    setIsRegCompletely: function(boolean,userID){
+        var deferred = new promise.Deferred();
+
+        return deferred;
+
     }
 };
