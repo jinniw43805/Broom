@@ -15,7 +15,8 @@
     <link href="assets/lib/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="public/home/stylesheet/css/landing-page.css" rel="stylesheet">
+    <link href="public/home/stylesheet/css/index.css" rel="stylesheet">
+    <link href="public/home/stylesheet/css/index.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="public/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -74,7 +75,15 @@
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h1>Coconut</h1>
-                        <h3>A Coworking Space for Note</h3>
+                        <div class="type-wrap">
+                            <div id="typed-strings">
+                                <p>Coconut is a <strong>Note</strong> platform</p>
+                                <p>Let <em>co-work</em> possibility</p>
+                                <p>And then deletes them.</p>
+                                <p>Try it out!</p>
+                            </div>
+                            <span id="typed" style="white-space:pre;"></span>
+                        </div>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             
@@ -226,47 +235,50 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="assets/lib/js/bootstrap.js"></script>
+    <!-- Custom JS -->
+    <script src="public/home/javascript/typed.js"></script>
+    <script src="public/home/javascript/index.js"></script>
     <!-- Loading FB Stuff -->
     <script src="public/home/javascript/fbInit.js"></script>
 <script>
 
-  // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      testAPI();
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
-    }
-  }
+  // // This is called with the results from from FB.getLoginStatus().
+  // function statusChangeCallback(response) {
+  //   console.log('statusChangeCallback');
+  //   console.log(response);
+  //   // The response object is returned with a status field that lets the
+  //   // app know the current login status of the person.
+  //   // Full docs on the response object can be found in the documentation
+  //   // for FB.getLoginStatus().
+  //   if (response.status === 'connected') {
+  //     // Logged into your app and Facebook.
+  //     testAPI();
+  //   } else if (response.status === 'not_authorized') {
+  //     // The person is logged into Facebook, but not your app.
+  //     document.getElementById('status').innerHTML = 'Please log ' +
+  //       'into this app.';
+  //   } else {
+  //     // The person is not logged into Facebook, so we're not sure if
+  //     // they are logged into this app or not.
+  //     document.getElementById('status').innerHTML = 'Please log ' +
+  //       'into Facebook.';
+  //   }
+  // }
 
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
+  // function checkLoginState() {
+  //   FB.getLoginStatus(function(response) {
+  //     statusChangeCallback(response);
+  //   });
+  // }
 
 
-  checkLoginState();
+  // checkLoginState();
 </script>
-
+<!-- 
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
 
-<div id="status">
+<div id="status"> -->
 </div>
 
 
