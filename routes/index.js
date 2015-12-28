@@ -56,7 +56,8 @@ router.post('/completeData', function(req, res, next) {
 });
 
 router.post('/addNewCourse',function(req, res, next) {
-
+	console.log(req.body);
+	res.redirect('/success');
 });
 
 
@@ -79,5 +80,5 @@ function isLoggedIn(req, res, next) {
 	}
 }
 function isRegCompletelyRight(req, res, next) {
-	
+
 }

@@ -6,7 +6,7 @@ $(document).ready(function() {
         }else{
             console.log("showReg");
             $('#myModal').modal('toggle');
-            $('#example').tooltip(options)
+            // $('#example').tooltip(options)
 
         }
     }());
@@ -115,5 +115,22 @@ $(document).ready(function() {
         }
         init();
 
-    };  
+    };
+
+    newCourse = function() {
+        CourseData = {
+            name : "",
+            ownerFBuid : userData.oauthID,
+            ownerNane: userData.name,
+            member: [],
+            created : ""
+        }; 
+        console.log(CourseData);
+        // var updateme= new EJS({url: 'views/dialogs/addCourse'}).update('deleteme','fuck');
+        var courseContainer = new EJS({url: 'views/dialogs/addCourse'}).render(CourseData);
+        $('#dataDialog').empty();
+        $('#dataDialog').append(courseContainer);
+        $('#myModal').modal('toggle');
+
+    };
 });
