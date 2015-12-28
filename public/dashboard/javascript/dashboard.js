@@ -117,11 +117,11 @@ $(document).ready(function() {
 
     };
 
-    newCourse = function() {
+    $('#addNewCourseBtn').click(function(event) {
         CourseData = {
             name : "",
             ownerFBuid : userData.oauthID,
-            ownerNane: userData.name,
+            ownerName: userData.name,
             member: [],
             created : ""
         }; 
@@ -131,6 +131,5 @@ $(document).ready(function() {
         $('#dataDialog').empty();
         $('#dataDialog').append(courseContainer);
         $('#myModal').modal('toggle');
-
-    };
+    }); 
 });
