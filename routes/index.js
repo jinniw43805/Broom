@@ -4,6 +4,7 @@ var promise = require('jquery-deferred');
 var router = express.Router();
 var util = require('util');
 var userApi = require('../src/userApi');
+var courseApi = require('../src/courseApi');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index.html');
@@ -46,18 +47,22 @@ router.get('/logout', function(req, res) {
 
 
 router.post('/completeData', function(req, res, next) {
+	console.log("try to completeData");
 	// console.log(req.body);
 	// console.log(req.cookies);
-	var Api= userApi.setUserCompleteInfo(req.body,req.cookies.fbuid);
-		promise.when(Api).done(function(){
+	var CompleteDataApi = userApi.setUserCompleteInfo(req.body,req.cookies.fbuid);
+		promise.when(CompleteDataApi).done(function(){
 		res.redirect('/success');
 
 	});
 });
 
 router.post('/addNewCourse',function(req, res, next) {
-	console.log(req.body);
-	res.redirect('/success');
+	// console.log(req.body);
+	var AddCourseApi = courseApi.setNewCourse(req.body);
+		promise.when(AddCourseApi).done(function(){
+		res.redirect('/success');
+	});
 });
 
 

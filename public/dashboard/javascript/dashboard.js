@@ -128,6 +128,7 @@ $(document).ready(function() {
         console.log(CourseData);
         // var updateme= new EJS({url: 'views/dialogs/addCourse'}).update('deleteme','fuck');
         var courseContainer = new EJS({url: 'views/dialogs/addCourse'}).render(CourseData);
+        console.log("courseContainer : "+courseContainer);
         $('#dataDialog').empty();
         $('#dataDialog').append(courseContainer);
         $('#myModal').modal('toggle');
