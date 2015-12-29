@@ -45,7 +45,7 @@ function setNewCourse(data,deferred){
                 }
             });
 
-            userApi.addNewCourse(ownerFBuid,courseID,deferred);
+            userApi.addNewCourse(ownerFBuid,courseName,courseID);
 
         }else{
             console.log("courseID hit!!");

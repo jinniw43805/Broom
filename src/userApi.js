@@ -37,18 +37,24 @@ function getIsRegCompletely(userID,deferred){
 function setIsRegCompletely(boolean,userID,deferred){
 
 }
-function addNewCourse(userID,courseID,deferred){
+function addNewCourse(userID,courseName,courseID){
     var res={};
     User.findOne({oauthID:userID}, function(err, user) {
-        user.ownCourses.push(courseID);
-        user.joinCourses.push(courseID);
+        console.log("try to storing new course to:"+userID);
+        console.log("courseName:"+courseName+"courseID"+courseID);
+        var CourseData = {
+            courseName: courseName,
+            courseID: courseID
+        }
+        user.ownCourses.push(CourseData);
+        user.joinCourses.push(CourseData);
         user.save(function(err) {
             if(err){
                 console.log(err);
             }else{
                 console.log("set sucess!!");
             }
-            deferred.resolve(res);
+            // deferred.resolve(res);
         });
     });
 
@@ -69,10 +75,10 @@ module.exports = {
 
         return deferred;
     },
-    addNewCourse : function(userID,courseID,deferred){
-        var deferred = new promise.Deferred();
-        addNewCourse(userID,courseID,deferred);
-        return deferred;
+    addNewCourse : function(userID,courseName,courseID){
+        // var deferred = new promise.Deferred();
+        addNewCourse(userID,courseName,courseID);
+        // return deferred;
     }   
 
 };
