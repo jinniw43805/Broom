@@ -10,7 +10,7 @@ if (mongoose.connection.readyState === 0) {
     mongoose.connect(mongooseUri, db.options);
 }
 
-var Courses = new Schema({
+var CoursesModal = new Schema({
     courseName: String,
     courseID: Number
 });
@@ -31,8 +31,8 @@ module.exports = mongoose.model('User', new Schema({
     gra_department: String,
     contributeVal: Number,
     // User Courses
-    ownCourses: [Courses],
-    joinCourses: [Courses],
+    ownCourses: [CoursesModal],
+    joinCourses: [CoursesModal],
     created: String
 }));
 

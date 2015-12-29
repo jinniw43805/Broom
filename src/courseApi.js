@@ -64,5 +64,8 @@ module.exports = {
         setNewCourse(data,deferred);
         return deferred;
 
+    },
+    getCourseInfo: function(fbuid){
+        //return full course information to let front render.
     }
 }
