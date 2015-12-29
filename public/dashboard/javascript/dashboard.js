@@ -134,8 +134,9 @@ $(document).ready(function() {
         // $('#dataDialog').append(courseContainer);
 
         var ownerName = document.getElementById('AddCouserInputOwnerName');
-        ownerName.value = CourseData.ownerName;
         var ownerFBuid = document.getElementById('AddCouserInputOwnerFBuid');
+        
+        ownerName.value = CourseData.ownerName;
         ownerFBuid.value = CourseData.ownerFBuid;
         $('#addCourseModal').modal('toggle');
     }); 

@@ -10,12 +10,13 @@ if (mongoose.connection.readyState === 0) {
     mongoose.connect(mongooseUri, db.options);
 }
 module.exports = mongoose.model('Courses', new Schema({
+    courseID: Number,
     courseName: String,
     courseDatas: [String],
     ownerFBuid: Number,
     ownerName: String,
     member: [String],
-    acadeYear: Number,
+    acadeYear: String,
     forClass: String,
     created: String
 }));
