@@ -59,6 +59,15 @@ function setNewCourse(data,deferred){
 }
 
 
+function setNewNote(data,deferred){
+    var res={};
+    console.log(data.CourseName);
+    console.log(data.noteName);
+    Course.findOne({courseID}, function(err, course){
+        
+    });
+    deferred.resolve(res);
+}
 module.exports = {
     setNewCourse: function(data){
         var deferred = new promise.Deferred();
@@ -68,5 +77,11 @@ module.exports = {
     },
     getCourseInfo: function(fbuid){
         //return full course information to let front render.
+    },
+
+    setNewNote: function(data){
+        var deferred = new promise.Deferred();
+        setNewNote(data,deferred);
+        return deferred;
     }
 }

@@ -135,9 +135,19 @@ $(document).ready(function() {
 
         var ownerName = document.getElementById('AddCouserInputOwnerName');
         var ownerFBuid = document.getElementById('AddCouserInputOwnerFBuid');
-        
+
         ownerName.value = CourseData.ownerName;
         ownerFBuid.value = CourseData.ownerFBuid;
         $('#addCourseModal').modal('toggle');
     }); 
+
+    $('.CourseAddNote').click(function(event) {
+        console.log("hello world:"+this.id);
+
+        var courseID = document.getElementById('AddNoteInputCourseName');
+
+        courseID.value = this.id;
+
+        $('#addNoteModal').modal('toggle');
+    });
 });

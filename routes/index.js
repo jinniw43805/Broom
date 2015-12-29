@@ -70,7 +70,13 @@ router.post('/addNewCourse',function(req, res, next) {
 
 
 router.post('/addNewNote',function(req, res, next) {
-	
+	console.log(req.body);
+	var AddNoteApi = courseApi.setNewNote(req.body);
+		promise.when(AddNoteApi).done(function(){
+			// console.log("this time:"+req.user.ownCourses);
+		res.redirect('/success');
+	});
+
 });
 
 

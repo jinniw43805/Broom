@@ -185,17 +185,17 @@
             </li>
             <% for(var i=0; i<user.ownCourses.length;i++){%>
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i><%=user.ownCourses[i].courseName%><i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="demo" class="collapse">
-                <li>
-                <a href="#">Dropdown Item</a>
-                </li>
-                <li>
-                <a href="#">Dropdown Item</a>
-                </li>
-                <li>
-                <a href="javascript:hello();">test Me</a>
-                </li>
+                <a href="javascript:;" data-toggle="collapse" data-target=<%="#"+user.ownCourses[i].courseID+"col"%>><i class="fa fa-fw fa-arrows-v"></i><%=user.ownCourses[i].courseName%><i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id=<%=user.ownCourses[i].courseID+"col"%> class="collapse">
+                    <li>
+                    <a href="#">Dropdown Item</a>
+                    </li>
+                    <li>
+                    <a href="#">Dropdown Item</a>
+                    </li>
+                    <li>
+                    <a href="#" id=<%=user.ownCourses[i].courseID%> class="CourseAddNote">ADD Note</a>
+                    </li>
                 </ul>
             </li>
             <% } %>
