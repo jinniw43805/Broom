@@ -11,17 +11,22 @@ if (mongoose.connection.readyState === 0) {
 }
 
 module.exports = mongoose.model('User', new Schema({
+    // User basic 
     oauthID: Number,
     name: String,
     emails: String,
     photo: String,
     gender: String,
     provider: String,
+    // School Information
     isRegCompletely: Boolean,
     university: String,
     uni_department: String,
     graduation: String,
     gra_department: String,
     contributeVal: Number,
+    // User Courses
+    ownCourses: [Number],
+    joinCourses: [Number],
     created: String
 }));

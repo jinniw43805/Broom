@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 var Course = require('../models/courseInfo.js');
 var User = require('../models/userInfo.js');
-
+var userApi = require('./userApi');
 var tokenGener = require('./cocoTokenGener.js');
 
 function setNewCourse(data,deferred){
@@ -45,14 +45,13 @@ function setNewCourse(data,deferred){
                 }
             });
 
-
+            userApi.addNewCourse(ownerFBuid,courseID,deferred);
 
         }else{
             console.log("courseID hit!!");
         }
-
-
     });
+
 
     console.log("new id :"+tokenGener.getNewCourseId());
     deferred.resolve(res);
