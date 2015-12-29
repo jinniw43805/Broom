@@ -45,10 +45,11 @@ function setNewCourse(data,deferred){
                 }
             });
 
-            userApi.addNewCourse(ownerFBuid,courseName,courseID);
+            userApi.addNewCourse(ownerFBuid,courseName,courseID,deferred);
 
         }else{
             console.log("courseID hit!!");
+            //return error code about hit .
         }
     });
 
