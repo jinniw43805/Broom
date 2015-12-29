@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     var regDiaLoader = (function() {
         if(isRegCompletely===true){
 
@@ -116,6 +115,7 @@ $(document).ready(function() {
         init();
 
     };
+    testCourse2 = new EJS({url: 'views/dialog'}).render("123");
 
     $('#addNewCourseBtn').click(function(event) {
         CourseData = {
@@ -125,12 +125,18 @@ $(document).ready(function() {
             member: [],
             created : ""
         }; 
+        // var testCourse = new EJS({url: 'views/dialogs/addCourse'}).render(CourseData);
         console.log(CourseData);
         // var updateme= new EJS({url: 'views/dialogs/addCourse'}).update('deleteme','fuck');
-        var courseContainer = new EJS({url: 'views/dialogs/addCourse'}).render(CourseData);
-        console.log("courseContainer : "+courseContainer);
-        $('#dataDialog').empty();
-        $('#dataDialog').append(courseContainer);
-        $('#myModal').modal('toggle');
+        // var courseContainer = new EJS({url: 'views/dialogs/addCourse'}).render(CourseData);
+        // console.log("courseContainer : "+courseContainer);
+        // $('#dataDialog').empty();
+        // $('#dataDialog').append(courseContainer);
+
+        var ownerName = document.getElementById('AddCouserInputOwnerName');
+        ownerName.value = CourseData.ownerName;
+        var ownerFBuid = document.getElementById('AddCouserInputOwnerFBuid');
+        ownerFBuid.value = CourseData.ownerFBuid;
+        $('#addCourseModal').modal('toggle');
     }); 
 });

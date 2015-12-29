@@ -36,7 +36,9 @@ router.get('/error', function(req, res, next) {
 });
 
 router.get('/test', function(req, res, next) {
-	  res.render("testpadejs");
+	  res.render("dialogs/addCourse",{
+	  	CourseData:" "
+	  });
 });
 
 router.get('/logout', function(req, res) {
