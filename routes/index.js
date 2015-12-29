@@ -23,6 +23,7 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook', {
 }));
 
 router.get('/success',isLoggedIn ,function(req, res, next){
+	console.log("user information send to front:"+req.user);
 	res.cookie('fbuid',req.user.oauthID, { maxAge: 900000, httpOnly: true });
 	  res.render('dashboard', {
 	  	user : req.user,
@@ -55,7 +56,6 @@ router.post('/completeData', function(req, res, next) {
 	var CompleteDataApi = userApi.setUserCompleteInfo(req.body,req.cookies.fbuid);
 		promise.when(CompleteDataApi).done(function(){
 		res.redirect('/success');
-
 	});
 });
 
@@ -63,6 +63,7 @@ router.post('/addNewCourse',function(req, res, next) {
 	// console.log(req.body);
 	var AddCourseApi = courseApi.setNewCourse(req.body);
 		promise.when(AddCourseApi).done(function(){
+			console.log("this time:"+req.user.ownCourses);
 		res.redirect('/success');
 	});
 });

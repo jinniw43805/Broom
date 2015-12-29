@@ -55,7 +55,7 @@ function setNewCourse(data,deferred){
 
 
     console.log("new id :"+tokenGener.getNewCourseId());
-    deferred.resolve(res);
+    // deferred.resolve(res);
 }
 
 

@@ -183,7 +183,22 @@
             <li>
                 <a href="#" id="addNewCourseBtn"><i class="fa fa-fw fa-plus-square"></i> Add New Course</a>
             </li>
-
+            <% for(var i=0; i<user.ownCourses.length;i++){%>
+            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i><%=user.ownCourses[i].courseName%><i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo" class="collapse">
+                <li>
+                <a href="#">Dropdown Item</a>
+                </li>
+                <li>
+                <a href="#">Dropdown Item</a>
+                </li>
+                <li>
+                <a href="javascript:hello();">test Me</a>
+                </li>
+                </ul>
+            </li>
+            <% } %>
         </ul>
     </div>
     <!-- /.navbar-collapse -->
