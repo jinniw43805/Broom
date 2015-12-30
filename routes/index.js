@@ -23,7 +23,15 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook', {
 }));
 
 router.get('/success',isLoggedIn ,function(req, res, next){
-	console.log("user information send to front:"+req.user);
+
+	var GetCourseDataApi = courseApi.getUserCourseDatas(req.user.oauthID);
+	promise.when(GetCourseDataApi).done(function(){
+		console.log(arguments[0]);
+		console.log("userCourse->>>>>>"+JSON.stringify(GetCourseDataApi));
+	});
+
+
+	// console.log("user information send to front:"+req.user);
 	res.cookie('fbuid',req.user.oauthID, { maxAge: 900000, httpOnly: true });
 	  res.render('dashboard', {
 	  	user : req.user,

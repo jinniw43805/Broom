@@ -93,6 +93,42 @@ function setNewNote(data,deferred){
     });
     deferred.resolve(res);
 }
+function getUserCourseDatas(fbuid,deferred){
+    var res = {
+        "type": "data",
+        "datas":{
+            "ownCourses" : [],
+            "joinCourses" : []
+        }
+    };  
+    User.findOne({oauthID:fbuid}, function(err, user){
+        //return own data and join data
+        res.datas.ownCourses = user.ownCourses;
+        for(var i=0 ; i<user.joinCourses.length;i++){
+            console.log("start use "+user.joinCourses[i].courseID+"to compare");
+            var flag = 0
+            for(var j=0 ; j<user.ownCourses.length;j++){
+                console.log("income obj: "+user.ownCourses[j].courseID+"to compare");
+                if(user.ownCourses[j].courseID === user.joinCourses[i].courseID){
+                    console.log("match!"+user.ownCourses[j].courseID);
+                    flag = 1;   
+                    break;
+                }
+            }
+            if(flag==1){
+                continue;
+            }else{
+                res.datas.joinCourses.push(user.joinCourses[i]);
+            }
+        }
+
+
+        console.log("user data:--->"+JSON.stringify(res));
+    deferred.resolve(res);
+    });
+
+
+}
 module.exports = {
     setNewCourse: function(data){
         var deferred = new promise.Deferred();
@@ -100,13 +136,16 @@ module.exports = {
         return deferred;
 
     },
-    getCourseInfo: function(fbuid){
-        //return full course information to let front render.
-    },
-
     setNewNote: function(data){
         var deferred = new promise.Deferred();
         setNewNote(data,deferred);
         return deferred;
+    },
+    getUserCourseDatas: function(fbuid){
+    //return full course information to let front render.
+        var deferred = new promise.Deferred();
+        getUserCourseDatas(fbuid,deferred);
+        return deferred;
     }
+
 }
