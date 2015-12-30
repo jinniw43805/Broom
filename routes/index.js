@@ -30,6 +30,16 @@ router.get('/success',isLoggedIn ,function(req, res, next){
 		console.log("userCourse->>>>>>"+JSON.stringify(GetCourseDataApi));
 	});
 
+router.get('/profile',isLoggedIn ,function(req, res, next){
+	res.cookie('fbuid',req.user.oauthID, { maxAge: 900000, httpOnly: true });
+	  res.render('profile', {
+	  	user : req.user,
+	  	isRegCompletely : req.user.isRegCompletely,
+	  });
+
+});
+
+
 
 	// console.log("user information send to front:"+req.user);
 	res.cookie('fbuid',req.user.oauthID, { maxAge: 900000, httpOnly: true });

@@ -1,41 +1,44 @@
-<!-- views/profile.ejs -->
-<!doctype html>
-<html>
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <style>
-        body        { padding-top:80px; word-wrap:break-word; }
-    </style>
+    <% include head %>
+
 </head>
 <body>
-<div class="container">
+    
+    <div id="wrapper">
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+        <% include navigation %>
+
+        <% include user_profile2 %>
+
+         <!-- /#page-wrapper -->
     </div>
 
-    <div class="row">
+<!--     <strong><%= user  %></strong><br>
+ -->
+    <footer>
+        <% include footer %>
 
-        <!-- FACEBOOK INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+    </footer>
+    
+    <% include dialog %>
+    <% include dialogs/addCourse %>
+    <% include dialogs/addNote %>
+    <% include data-loader%> 
 
-                    <p>
-                        <strong>id</strong>: <%= user.facebook.id %><br>
-                        <strong>token</strong>: <%= user.facebook.token %><br>
-                        <strong>email</strong>: <%= user.facebook.email %><br>
-                        <strong>name</strong>: <%= user.facebook.name %>
-                    </p>
 
-            </div>
-        </div>
+    <!-- Public Javascript -->
+    <script src="assets/lib/js/jquery.js"></script>
+    <script src="assets/lib/js/bootstrap.js"></script>
+    <script src="assets/lib/js/js.cookie.js"></script>
+    <script src="assets/lib/js/firebase.js"></script>
+    <script src="assets/lib/js/codemirror.js"></script>
+    <script src="assets/lib/js/firepad.js"></script>
+    <!--<script src="public/dashboard/javascript/dashboard.js"></script> -->
+    <script src="public/profile/javascript/user_profile.js"></script>
 
-    </div>
-
-</div>
 </body>
 </html>
