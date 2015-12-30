@@ -15,7 +15,7 @@ module.exports = mongoose.model('Courses', new Schema({
     courseDatas: [String],
     ownerFBuid: Number,
     ownerName: String,
-    member: [String],
+    joinMember: [String],
     acadeYear: String,
     forClass: String,
     created: String
