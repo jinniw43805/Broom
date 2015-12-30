@@ -61,14 +61,31 @@ function setNewCourse(data,deferred){
 
 function setNewNote(data,deferred){
     var res={};
-    console.log(data.CourseID);
-    console.log(data.noteName);
-    Course.findOne({courseID:data.CourseID}, function(err, course){
+    var courseID = data.CourseID;
+    var noteName = data.noteName;
+    var noteID = tokenGener.getNewNoteId();
+    // console.log(courseID);
+    // console.log(noteName);
+    
+    Course.findOne({courseID:courseID}, function(err, course){
         if(err){
             console.log(err);
         }else{
             if(course){
-                
+                //start storing to courseCollection
+                var noteData = {
+                    noteName :noteName,
+                    noteID : noteID
+                }
+                // console.log("NoteDATA:--->"+NoteData.NoteName+","+NoteData.NoteID);
+                course.courseDatas.push(noteData);
+                course.save(function(err) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        console.log("add success");
+                    }
+                });
             }else{
                 //error adding
             }

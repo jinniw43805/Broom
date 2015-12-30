@@ -10,10 +10,14 @@ function getNewCourseId(){
     return token;
 }
 function getNewNoteId(){
-    
+    var token = randtoken.generate(8);
+    return token;
 }
 module.exports = {
     getNewCourseId: function(){
         return getNewCourseId();
+    },
+    getNewNoteId: function(){
+        return getNewNoteId();
     }
 }
