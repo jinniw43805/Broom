@@ -6,6 +6,8 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "^1.5.0",
+    "async-each-object": "0.0.2",
     "body-parser": "~1.13.2",
     "bower": "^1.7.1",
     "consolidate": "^0.13.1",

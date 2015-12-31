@@ -17,23 +17,20 @@ module.exports = function(passport) {
     },
     function(accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
-        console.log(accessToken);
-        console.log(profile);
+        // console.log(accessToken);
+        // console.log(profile);
         //done(null, profile);
         User.findOne({
             oauthID: profile.id
         }, function(err, user) {
-            console.log("try to storing");
-
             if (err) {
                 console.log(err);
             }
             if (!err && user != null) {
-                console.log("cannot find user");
+                //can find user
                 done(null, user);
 
             } else {
-
                 console.log("start storing...");
                 var StoreUser = new User({
                     oauthID: profile.id,

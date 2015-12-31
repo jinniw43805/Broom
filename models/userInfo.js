@@ -10,10 +10,17 @@ if (mongoose.connection.readyState === 0) {
     mongoose.connect(mongooseUri, db.options);
 }
 
+var NotesModal = new Schema({
+    noteName: String,
+    noteID: String
+});
+
 var CoursesModal = new Schema({
     courseName: String,
-    courseID: Number
+    courseID: Number,
+    NoteData: [NotesModal]
 });
+
 
 module.exports = mongoose.model('User', new Schema({
     // User basic 
