@@ -100,7 +100,7 @@ $(document).ready(function() {
           });
         }
         function getExampleRef() {
-          var ref = new Firebase('https://firepad.firebaseio-demo.com');
+          var ref = new Firebase('https://coconutdata.firebaseio.com/');
           var hash = window.location.hash.replace(/#/g, '');
           if (hash) {
             ref = ref.child(hash);
