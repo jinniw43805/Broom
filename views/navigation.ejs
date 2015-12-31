@@ -165,15 +165,9 @@
             </li> -->
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Test area <i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="demo" class="collapse">
+                <ul id="demo" class="collapse in">
                     <li>
-                        <a href="#">Dropdown Item</a>
-                    </li>
-                    <li>
-                        <a href="#">Dropdown Item</a>
-                    </li>
-                    <li>
-                        <a href="javascript:hello();">test Me</a>
+                        <a href="javascript:hello();">test Note</a>
                     </li>
                 </ul>
             </li>
@@ -183,18 +177,21 @@
             <li>
                 <a href="#" id="addNewCourseBtn"><i class="fa fa-fw fa-plus-square"></i> Add New Course</a>
             </li>
-            <% for(var i=0; i<user.ownCourses.length;i++){%>
+
+
+            <% for(var i=0; i<CourseData.datas.ownCourses.length;i++){%>
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target=<%="#"+user.ownCourses[i].courseID+"col"%>><i class="fa fa-fw fa-arrows-v"></i><%=user.ownCourses[i].courseName%><i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id=<%=user.ownCourses[i].courseID+"col"%> class="collapse">
+                <a href="javascript:;" data-toggle="collapse" data-target=<%="#"+CourseData.datas.ownCourses[i].courseID+"col"%>><i class="fa fa-fw fa-arrows-v"></i><%=CourseData.datas.ownCourses[i].courseName%><i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id=<%=CourseData.datas.ownCourses[i].courseID+"col"%> class="collapse in">
+                    <% for(var j=0; j<CourseData.datas.ownCourses[i].NoteData.length;j++){%>
+
+                        <li>
+                            <a href="#"><%=CourseData.datas.ownCourses[i].NoteData[j].noteName %></a>
+                        </li>                    
+                    <% } %>
+
                     <li>
-                    <a href="#">Dropdown Item</a>
-                    </li>
-                    <li>
-                    <a href="#">Dropdown Item</a>
-                    </li>
-                    <li>
-                    <a href="#" id=<%=user.ownCourses[i].courseID%> class="CourseAddNote">ADD Note</a>
+                        <a href="#" id=<%=CourseData.datas.ownCourses[i].courseID%> class="CourseAddNote">ADD Note</a>
                     </li>
                 </ul>
             </li>

@@ -30,10 +30,13 @@ router.get('/success',isLoggedIn ,function(req, res, next){
 		console.log("Show current res:  "+ JSON.stringify(arguments[0],null,2));
 		// console.log(arguments[0]);
 		// console.log("userCourse->>>>>>"+JSON.stringify(arguments[0]));
+		var FetchCourseData = arguments[0];
+
 		res.cookie('fbuid',req.user.oauthID, { maxAge: 900000, httpOnly: true });
 		res.render('dashboard', {
 			user : req.user,
 			isRegCompletely : req.user.isRegCompletely,
+			CourseData : FetchCourseData
 		});
 
 	});
