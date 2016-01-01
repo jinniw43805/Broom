@@ -1,19 +1,17 @@
 $(document).ready(function() {
-
-
     noteDataBaseRegister=  (function() {
         var getExampleRef= function () {
 
             var ref = new Firebase('https://coconutdata.firebaseio.com/');
-            var hash = window.location.hash.replace(/#/g, '');
-            if (hash) {
-                ref = ref.child(hash);
-            } else {
-                ref = ref.push(); // generate unique location.
-                window.location = window.location + '#' + ref.key(); // add it as a hash to the URL.
-            }
-            if (typeof console !== 'undefined')
-                console.log('Firebase data: ', ref.toString());
+            // var hash = window.location.hash.replace(/#/g, '');
+            // if (hash) {
+            //     ref = ref.child(hash);
+            // } else {
+            //     ref = ref.push(); // generate unique location.
+            //     window.location = window.location + '#' + ref.key(); // add it as a hash to the URL.
+            // }
+            // if (typeof console !== 'undefined')
+            //     console.log('Firebase data: ', ref.toString());
             return ref;
         }
         var helloworld = function(){
@@ -25,19 +23,23 @@ $(document).ready(function() {
         };
     }());
 
-    hello = function (){
-
-    };
 
     $('.RenderNote').click(function(event) {
-        console.log("are u call me ?"+this.id);
 
+        //check wheater user have course or not
+
+
+        // if(renderCheck.getHash() === ""){
+
+        // }else{
+
+        // }
         cocoPadRef.path.o[0]= this.id ;
         //// Create CodeMirror (with lineWrapping on).
 
         var container =document.getElementById('firepad-container'); 
 
-        container.innerHTML="";
+        container.innerHTML="1593743";
 
         var codeMirror = CodeMirror(container, { lineWrapping: true });
 
@@ -145,6 +147,7 @@ $(document).ready(function() {
     $('.CourseAddNote').click(function(event) {
         console.log("hello world:"+this.id);
 
+
         var courseID = document.getElementById('AddNoteInputCourseID');
         var courseName = document.getElementById("AddNoteInputCourseName");
 
@@ -162,12 +165,50 @@ $(document).ready(function() {
                 console.log("showReg");
                 $('#myModal').modal('toggle');
                 // $('#example').tooltip(options)
-
             }
         }());
 
+        var deHashFbBug = (function() {
+                if (window.location.hash && window.location.hash == '#_=_') {
+                    if (window.history && history.pushState) {
+                        window.history.pushState("", document.title, window.location.pathname);
+                    } else {
+                        // Prevent scrolling by storing the page's current scroll offset
+                        var scroll = {
+                            top: document.body.scrollTop,
+                            left: document.body.scrollLeft
+                        };
+                        window.location.hash = '';
+                        // Restore the scroll offset, should be flicker free
+                        document.body.scrollTop = scroll.top;
+                        document.body.scrollLeft = scroll.left;
+                    }
+                }
+        }());
+
+        var noteHashProcess = (function() {
+            console.log("Hash is : "+renderCheck.getHash());
+            console.log("Current Course is : "+JSON.stringify(CourseData,null,2));
+
+            if(renderCheck.getHash()===undefined){
+                console.log("hash is undefined");
+            }else{
+
+            }
+
+        })();
         //cocoPad init
         cocoPadRef = noteDataBaseRegister.getExampleRef();
 
     }());
 });
+
+renderCheck = (function() {
+    var getHash = function () {
+        return window.location.hash.split('#')[1];
+    }
+
+    return{
+        getHash:getHash
+    }
+})();

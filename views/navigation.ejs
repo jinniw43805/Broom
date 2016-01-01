@@ -171,11 +171,18 @@
                 <a href="#" id="addNewCourseBtn"><i class="fa fa-fw fa-plus-square"></i> Add New Course</a>
             </li>
 
-
+            <!-- Showing all own course -->
             <% for(var i=0; i<CourseData.datas.ownCourses.length;i++){%>
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target=<%="#"+CourseData.datas.ownCourses[i].courseID+"col"%>><i class="fa fa-fw fa-arrows-v"></i><%=CourseData.datas.ownCourses[i].courseName%><i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id=<%=CourseData.datas.ownCourses[i].courseID+"col"%> class="<% if(CourseData.datas.ownCourses.length > 2) {%>
+                    
+                <a href="javascript:;" data-toggle="collapse" data-target=<%="#"+CourseData.datas.ownCourses[i].courseID+"col"%>>
+                    <i class="fa fa-fw fa-arrows-v"></i>
+                    <%=CourseData.datas.ownCourses[i].courseName%><i class="fa fa-fw fa-caret-down"></i>                                        <span class="label label-pill label-danger ">Owner</span>
+
+                <div class="span12 text-center">
+                </div>
+                </a>
+         <ul id=<%=CourseData.datas.ownCourses[i].courseID+"col"%> class="<% if(CourseData.datas.ownCourses.length > 2) {%>
                         collapse
                         <% } else { %>
                         collapse in
@@ -184,7 +191,7 @@
                     <% for(var j=0; j<CourseData.datas.ownCourses[i].NoteData.length;j++){%>
 
                         <li>
-                            <a href="#" id=<%=CourseData.datas.ownCourses[i].NoteData[j].noteID%> class="RenderNote"><%=CourseData.datas.ownCourses[i].NoteData[j].noteName %></a>
+                            <a href=<%="#"+CourseData.datas.ownCourses[i].NoteData[j].noteID%> id=<%=CourseData.datas.ownCourses[i].NoteData[j].noteID%> class="RenderNote"><%=CourseData.datas.ownCourses[i].NoteData[j].noteName %></a>
                         </li>                    
                     <% } %>
 

@@ -89,9 +89,11 @@ router.post('/addNewNote',function(req, res, next) {
 			// console.log("this time:"+req.user.ownCourses);
 		res.redirect('/success');
 	});
-
 });
-
+// router.post('/isUserHadCourse', function(req, res, next) {
+// 	console.log("ajax data is :"+req.body);
+// 	// var UserHadCourseApi = userApi.getHasCourse(req.body);
+// });
 
 
 module.exports = router;
