@@ -163,15 +163,8 @@
             <li>
                 <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
             </li> -->
-            <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Test area <i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="demo" class="collapse in">
-                    <li>
-                        <a href="javascript:hello();">test Note</a>
-                    </li>
-                </ul>
-            </li>
-<!--             <li>
+
+<!--         <li>
                 <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
             </li> -->
             <li>
@@ -182,7 +175,12 @@
             <% for(var i=0; i<CourseData.datas.ownCourses.length;i++){%>
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target=<%="#"+CourseData.datas.ownCourses[i].courseID+"col"%>><i class="fa fa-fw fa-arrows-v"></i><%=CourseData.datas.ownCourses[i].courseName%><i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id=<%=CourseData.datas.ownCourses[i].courseID+"col"%> class="collapse in">
+                <ul id=<%=CourseData.datas.ownCourses[i].courseID+"col"%> class="<% if(CourseData.datas.ownCourses.length > 2) {%>
+                        collapse
+                        <% } else { %>
+                        collapse in
+                        <% } %>
+                        ">
                     <% for(var j=0; j<CourseData.datas.ownCourses[i].NoteData.length;j++){%>
 
                         <li>
