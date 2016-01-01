@@ -22,10 +22,137 @@ $(document).ready(function() {
             helloworld:helloworld
         };
     }());
+    
+
+    cocoPadRef = noteDataBaseRegister.getExampleRef();
 
 
     $('.RenderNote').click(function(event) {
 
+        renderCheck.renderPad(this.id,'firepad-container');
+
+    });
+    testCourse2 = new EJS({url: 'views/dialog'}).render("123");
+
+    $('#addNewCourseBtn').click(function(event) {
+        CourseData = {
+            name : "",
+            ownerFBuid : userData.oauthID,
+            ownerName: userData.name,
+            member: [],
+            created : ""
+        }; 
+        // var testCourse = new EJS({url: 'views/dialogs/addCourse'}).render(CourseData);
+        console.log(CourseData);
+        // var updateme= new EJS({url: 'views/dialogs/addCourse'}).update('deleteme','fuck');
+        // var courseContainer = new EJS({url: 'views/dialogs/addCourse'}).render(CourseData);
+        // console.log("courseContainer : "+courseContainer);
+        // $('#dataDialog').empty();
+        // $('#dataDialog').append(courseContainer);
+
+        var ownerName = document.getElementById('AddCouserInputOwnerName');
+        var ownerFBuid = document.getElementById('AddCouserInputOwnerFBuid');
+
+        ownerName.value = CourseData.ownerName;
+        ownerFBuid.value = CourseData.ownerFBuid;
+        $('#addCourseModal').modal('toggle');
+    }); 
+
+    $('.CourseAddNote').click(function(event) {
+        console.log("hello world:"+this.id);
+
+
+        var courseID = document.getElementById('AddNoteInputCourseID');
+        var courseName = document.getElementById("AddNoteInputCourseName");
+
+
+        courseID.value = this.id;
+
+        $('#addNoteModal').modal('toggle');
+    });
+
+    var init = (function(){
+        var regDiaLoader = (function() {
+            if(isRegCompletely===true){
+
+            }else{
+                console.log("showReg");
+                $('#myModal').modal('toggle');
+                // $('#example').tooltip(options)
+            }
+        }());
+
+        var deHashFbBug = (function() {
+                if (window.location.hash && window.location.hash == '#_=_') {
+                    if (window.history && history.pushState) {
+                        window.history.pushState("", document.title, window.location.pathname);
+                    } else {
+                        // Prevent scrolling by storing the page's current scroll offset
+                        var scroll = {
+                            top: document.body.scrollTop,
+                            left: document.body.scrollLeft
+                        };
+                        window.location.hash = '';
+                        // Restore the scroll offset, should be flicker free
+                        document.body.scrollTop = scroll.top;
+                        document.body.scrollLeft = scroll.left;
+                    }
+                }
+        }());
+
+        var noteHashProcess = (function() {
+            var para = renderCheck.getHash();
+
+            console.log("Hash is : "+renderCheck.getHash());
+            console.log("Current Course is : "+JSON.stringify(CourseData,null,2));
+
+            if(para===undefined){
+                console.log("hash is undefined");
+            }else{
+                var flag = 0 ;
+                for (var i = 0; i < CourseData.datas.ownCourses.length; i++) {
+                    for (var j = 0; j < CourseData.datas.ownCourses[i].NoteData.length; j++) {
+                        if(CourseData.datas.ownCourses[i].NoteData[j].noteID === para){
+                            flag = 1 ;
+                            break;
+                        }
+                    }
+                    if(flag == 1 ){
+                        break;
+                    }
+                }
+
+                if(flag === 1) {
+                    console.log("find data");
+                    // render 
+                    renderCheck.renderPad(para,'firepad-container');
+
+
+                }else{
+                    console.log("not find data!!");
+
+                    alert("you dont have the right");
+                }
+            }
+
+        })();
+
+
+        //cocoPad init
+        cocoPadRef = noteDataBaseRegister.getExampleRef();
+
+    }());
+});
+
+renderCheck = (function() {
+    var getHash = function () {
+        return window.location.hash.split('#')[1];
+    }
+    var renderPad = function (id,contain) {
+
+        var noteID = id;
+        var container = contain;
+        
         //check wheater user have course or not
 
 
@@ -34,12 +161,13 @@ $(document).ready(function() {
         // }else{
 
         // }
-        cocoPadRef.path.o[0]= this.id ;
+        cocoPadRef.path.o[0]= noteID ;
         //// Create CodeMirror (with lineWrapping on).
 
-        var container =document.getElementById('firepad-container'); 
+        // var container =document.getElementById('firepad-container'); 
+        var container =document.getElementById(container); 
 
-        container.innerHTML="1593743";
+        container.innerHTML="";
 
         var codeMirror = CodeMirror(container, { lineWrapping: true });
 
@@ -116,99 +244,9 @@ $(document).ready(function() {
             }
         });
             
-
-    });
-    testCourse2 = new EJS({url: 'views/dialog'}).render("123");
-
-    $('#addNewCourseBtn').click(function(event) {
-        CourseData = {
-            name : "",
-            ownerFBuid : userData.oauthID,
-            ownerName: userData.name,
-            member: [],
-            created : ""
-        }; 
-        // var testCourse = new EJS({url: 'views/dialogs/addCourse'}).render(CourseData);
-        console.log(CourseData);
-        // var updateme= new EJS({url: 'views/dialogs/addCourse'}).update('deleteme','fuck');
-        // var courseContainer = new EJS({url: 'views/dialogs/addCourse'}).render(CourseData);
-        // console.log("courseContainer : "+courseContainer);
-        // $('#dataDialog').empty();
-        // $('#dataDialog').append(courseContainer);
-
-        var ownerName = document.getElementById('AddCouserInputOwnerName');
-        var ownerFBuid = document.getElementById('AddCouserInputOwnerFBuid');
-
-        ownerName.value = CourseData.ownerName;
-        ownerFBuid.value = CourseData.ownerFBuid;
-        $('#addCourseModal').modal('toggle');
-    }); 
-
-    $('.CourseAddNote').click(function(event) {
-        console.log("hello world:"+this.id);
-
-
-        var courseID = document.getElementById('AddNoteInputCourseID');
-        var courseName = document.getElementById("AddNoteInputCourseName");
-
-
-        courseID.value = this.id;
-
-        $('#addNoteModal').modal('toggle');
-    });
-
-    var init = (function(){
-        var regDiaLoader = (function() {
-            if(isRegCompletely===true){
-
-            }else{
-                console.log("showReg");
-                $('#myModal').modal('toggle');
-                // $('#example').tooltip(options)
-            }
-        }());
-
-        var deHashFbBug = (function() {
-                if (window.location.hash && window.location.hash == '#_=_') {
-                    if (window.history && history.pushState) {
-                        window.history.pushState("", document.title, window.location.pathname);
-                    } else {
-                        // Prevent scrolling by storing the page's current scroll offset
-                        var scroll = {
-                            top: document.body.scrollTop,
-                            left: document.body.scrollLeft
-                        };
-                        window.location.hash = '';
-                        // Restore the scroll offset, should be flicker free
-                        document.body.scrollTop = scroll.top;
-                        document.body.scrollLeft = scroll.left;
-                    }
-                }
-        }());
-
-        var noteHashProcess = (function() {
-            console.log("Hash is : "+renderCheck.getHash());
-            console.log("Current Course is : "+JSON.stringify(CourseData,null,2));
-
-            if(renderCheck.getHash()===undefined){
-                console.log("hash is undefined");
-            }else{
-
-            }
-
-        })();
-        //cocoPad init
-        cocoPadRef = noteDataBaseRegister.getExampleRef();
-
-    }());
-});
-
-renderCheck = (function() {
-    var getHash = function () {
-        return window.location.hash.split('#')[1];
     }
-
     return{
-        getHash:getHash
+        getHash : getHash,
+        renderPad : renderPad
     }
 })();
