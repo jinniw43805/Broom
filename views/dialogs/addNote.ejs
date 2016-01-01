@@ -10,12 +10,24 @@
             </div>
             <div class="panel-body">
                 <form role="form" method="post" action="/addNewNote" >
-                    <div class="row">
+<!--                     <div class="row">
                         <div class="col-xs-3 col-sm-3 col-md-3">
-                        <label for="InputCourseName">課程名稱</label>
+                        <label for="InputCourseName">Course Name</label>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
-                            <input id="AddNoteInputCourseName"class="form-control" type="text" name="CourseID" value="" placeholder=""readonly>
+                            <input id="AddNoteInputCourseName"class="form-control" type="text" name="CourseName" value="" placeholder=""readonly>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        </div>
+                    </div>
+                    <br>
+                    <br> -->
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        <label for="InputCourseID">Course ID</label>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <input id="AddNoteInputCourseID"class="form-control" type="text" name="CourseID" value="" placeholder=""readonly>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                         </div>
@@ -24,7 +36,7 @@
                     <br>
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 col-md-3">
-                        <label for="InputForNoteName">筆記名稱</label>
+                        <label for="InputForNoteName">Note Name</label>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <input type="text" name="noteName" id="AddNoteInputNoteName" class="form-control input-sm" placeholder="Note name">
