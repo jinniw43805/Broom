@@ -53,6 +53,10 @@ function addNewCourse(userID,courseName,courseID,deferred){
                 console.log(err);
             }else{
                 console.log("set sucess!!");
+                res = {
+                    type : "result",
+                    data : "S01"
+                }
             }
             deferred.resolve(res);
         });

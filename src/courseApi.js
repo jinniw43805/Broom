@@ -206,62 +206,6 @@ function setUserJoinCourse (data,deferred){
         }else{
             if(course){
                 var courseName = course.courseName;
-
-                //check ownisExist
-                // User.findOne({oauthID:ownerFBuid}, function(err, user){
-                //     if(err){
-                //         console.log(err);
-                //     }else{
-                //         if(user){
-
-                //             async.parallel([
-                //                 function(callback){
-                //                     asyncEachObject(user.ownCourses,
-                //                         function findCourseIsOwn(value, key, nextEach) {
-                //                             if(JSON.stringify(user.ownCourses[key].courseID) === joincourseId){
-
-                //                                 console.log("error , find already exist!!");
-                //                             };
-                //                             nextEach();
-
-                //                         },function complete(error) {
-                //                             console.log(error);
-                //                             callback(null,'test1');
-                //                         }
-                //                     );
-                //                 },
-                //                 function(callback){
-
-                //                 }
-
-                //             ],function(err, result){
-                //                 deferred.resolve(res);   
-                //             }
-
-                //             );
-                //             //find user
-                //             asyncEachObject(user.ownCourses,
-                //                 function findCourseIsOwn(value, key, nextEach) {
-                //                     if(JSON.stringify(user.ownCourses[key].courseID) === joincourseId){
-
-                //                         console.log("error , find already exist!!");
-                //                     };
-                //                     nextEach();
-
-                //                 },function complete(error) {
-                //                     deferred.resolve(res);    
-
-                //                     console.log(error);
-                //                 }
-                //             );
-
-
-                //         }else{
-                //             //cant find user , error
-                //             console.log("error");
-                //         }
-                //     }
-                // });
                 console.log("find the course"+courseName);
                 course.joinMember.push(ownerFBuid);
                 course.save(function(err ) {
@@ -300,7 +244,38 @@ function setUserJoinCourse (data,deferred){
 
         }
     });
-} 
+}
+function isExistCourse(data,deferred){
+    var res={};
+
+    var noteID = data.noteid;
+    var userID = data.userid;
+    Course.findOne({'courseDatas.noteID' : noteID},function(err , course){
+        if(err){
+            console.log(err);
+        }else{
+            if(course){
+                console.log("find note!!!");
+                var data = {
+                    joincourseId : course.courseID,
+                    ownerFBuid : userID
+                }
+                setUserJoinCourse(data, deferred);
+
+            }else{
+                //not find note
+                console.log("cant find note!!!");
+                var res = {
+                    type : "err",
+                    resultCode : "E02"
+                }
+                deferred.resolve(res);
+            }
+        }
+    });
+
+
+}
 module.exports = {
     setNewCourse: function(data){
         var deferred = new promise.Deferred();
@@ -324,6 +299,11 @@ module.exports = {
         setUserJoinCourse(data,deferred);
         return deferred;
 
+    },
+    isExistCourse :function(data){
+        var deferred = new promise.Deferred();
+        isExistCourse(data,deferred);
+        return deferred;        
     }
 
 }

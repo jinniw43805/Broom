@@ -98,7 +98,6 @@ router.post('/addJoinCourse', function(req, res, next) {
 	console.log(req.body);
 	var JoinCourseApi = courseApi.setUserJoinCourse(req.body);
 		promise.when(JoinCourseApi).done(function(){
-			arguments[0]
 			if(arguments[0].type==="error"){
 				//error
 				res.send("error enter ");
@@ -108,6 +107,15 @@ router.post('/addJoinCourse', function(req, res, next) {
 		})
 });
 
+router.post('/isExistCourse', function(req, res, next) {
+	// console.log(req.body);
+	var isExistApi = courseApi.isExistCourse(req.body);
+		promise.when(isExistApi).done(function(){
+			console.log("respond data :"+ JSON.stringify(arguments[0], null, 2));
+			res.json({success:1 });
+		});
+
+});
 module.exports = router;
 
 function isLoggedIn(req, res, next) {

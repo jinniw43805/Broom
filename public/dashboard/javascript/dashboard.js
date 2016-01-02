@@ -119,6 +119,8 @@ $(document).ready(function() {
                 console.log("hash is undefined");
             }else{
                 var flag = 0 ;
+
+                //check own data
                 for (var i = 0; i < CourseData.datas.ownCourses.length; i++) {
                     for (var j = 0; j < CourseData.datas.ownCourses[i].NoteData.length; j++) {
                         if(CourseData.datas.ownCourses[i].NoteData[j].noteID === para){
@@ -131,6 +133,7 @@ $(document).ready(function() {
                     }
                 }
 
+                //check join data
                 for (var i = 0; i < CourseData.datas.joinCourses.length; i++) {
                     for (var j = 0; j < CourseData.datas.joinCourses[i].NoteData.length; j++) {
                         if(CourseData.datas.joinCourses[i].NoteData[j].noteID === para){
@@ -151,7 +154,27 @@ $(document).ready(function() {
 
                 }else{
                     console.log("not find data!!");
-                    alert("you dont have the right");
+                    //
+                    // alert("you dont have the right");
+                    $.ajax({
+                        url: '/isExistCourse',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {noteid: para,
+                            userid: userData.oauthID
+                            }
+                    })
+                    .done(function() {
+                        console.log("success");
+                        window.location.reload();
+
+                    })
+                    .fail(function() {
+                        console.log("error");
+                    })
+                    .always(function() {
+                    });
+                    
                 }
             }
 
@@ -172,15 +195,7 @@ renderCheck = (function() {
 
         var noteID = id;
         var container = contain;
-        
-        //check wheater user have course or not
 
-
-        // if(renderCheck.getHash() === ""){
-
-        // }else{
-
-        // }
         cocoPadRef.path.o[0]= noteID ;
         //// Create CodeMirror (with lineWrapping on).
 
