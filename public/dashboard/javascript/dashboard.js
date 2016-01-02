@@ -164,9 +164,17 @@ $(document).ready(function() {
                             userid: userData.oauthID
                             }
                     })
-                    .done(function() {
+                    .done(function(data) {
                         console.log("success");
-                        window.location.reload();
+                        console.log(data);
+                        // window.location.reload();
+                        var userID = userData.oauthID;
+                        var courseID = data.data.courseId;
+                        var ownerFBuid = document.getElementById('JoinCouserInputOwnerFBuid');
+                        ownerFBuid.value = userID;
+                        var joinCourseID = document.getElementById('joincourseId');
+                        joinCourseID.value = courseID;
+                        $('#addJoinCourseModal').modal('toggle');
 
                     })
                     .fail(function() {

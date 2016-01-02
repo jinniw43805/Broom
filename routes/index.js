@@ -112,9 +112,8 @@ router.post('/isExistCourse', function(req, res, next) {
 	var isExistApi = courseApi.isExistCourse(req.body);
 		promise.when(isExistApi).done(function(){
 			console.log("respond data :"+ JSON.stringify(arguments[0], null, 2));
-			res.json({success:1 });
+			res.json(arguments[0]);
 		});
-
 });
 module.exports = router;
 

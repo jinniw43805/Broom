@@ -256,16 +256,27 @@ function isExistCourse(data,deferred){
         }else{
             if(course){
                 console.log("find note!!!");
-                var data = {
-                    joincourseId : course.courseID,
-                    ownerFBuid : userID
+                res = {
+                    type : "data",
+                    data : {
+                        courseId : course.courseID,
+                        courseName : course.courseName
+
+                    }
                 }
-                setUserJoinCourse(data, deferred);
+
+                deferred.resolve(res);
+
+                // var data = {
+                //     joincourseId : course.courseID,
+                //     ownerFBuid : userID
+                // }
+                // setUserJoinCourse(data, deferred);
 
             }else{
                 //not find note
                 console.log("cant find note!!!");
-                var res = {
+                res = {
                     type : "err",
                     resultCode : "E02"
                 }
