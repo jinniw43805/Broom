@@ -127,21 +127,10 @@ function getUserCourseDatas(fbuid,deferred){
                         res.datas.joinCourses.push(user.joinCourses[i]);
                     }
                 }
-                // console.log("length------->ownCourses");
-                // console.log(res.datas.ownCourses.length);
-
-                // console.log(res.datas.ownCourses);
-
-                // console.log("length------->joinCourses");
-                // console.log(res.datas.joinCourses.length);
-
-                // console.log("Stage 1");
                 callback(null,res);
             });
 
         },function(res,callback){
-
-            // console.log("Show current res data: "+ JSON.stringify(res));
             asyncEachObject(res.datas.ownCourses,
                 function findCourseInfo(value, key, nextEach) {
                     Course.findOne({courseID : res.datas.ownCourses[key].courseID}, function(err, course){
@@ -150,156 +139,168 @@ function getUserCourseDatas(fbuid,deferred){
                         }
                         else{
                             if(course){
-                                    var obj = {
-
-                                    }
                                     res.datas.ownCourses[key].NoteData = course.courseDatas;
-                                    
-                                    // var NotesData = {
-                                    //     "noteName": "",
-                                    //     "noteID": ""
-                                    // };
-                                    // obj[0].test = "test123";
-                                    // console.log("find!!!!");
-                                    // console.log("course datas"+course.courseDatas);
-                                    // console.log("ownCourses Lengtg"+res.datas.ownCourses.length);
-                                    
-                                    // var jsonobj =  JSON.stringify(res.datas.ownCourses[key]);
-
-                                    // jsonobj.NoteData.push({
-                                    //     noteName : "test",
-                                    //     noteID : "testID"
-                                    // });
-
-                                    // console.log("My json: "+jsonobj);
-                                    // res.datas.ownCourses[key].courseDatas.push("test");
-                                    // res.datas.ownCourses[key].courseName="";
-
-                                    // res.datas.ownCourses[key].test=[];
-                                    // res.datas.ownCourses[key].test.push("test!!!");
-                                    // res.datas.ownCourses[key].courseDatas.push(course.courseDatas);
-
                             }
                             else{
                                 //error find
                             }
                         }
                         nextEach();
-
                     });
-
                 },
                 function complete(error) {
                     if (error) {
                         console.log(error)
                     }
                     else {
+                         callback(null,res);
+                    }
+                }
+            );
+        },function(res,callback){
+            asyncEachObject(res.datas.joinCourses,
+                function findCourseInfo(value, key, nextEach) {
+                    Course.findOne({courseID : res.datas.joinCourses[key].courseID}, function(err, course){
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            if(course){
+                                    res.datas.joinCourses[key].NoteData = course.courseDatas;
+                            }
+                            else{
+                                //error find
+                            }
+                        }
+                        nextEach();
+                    });
+                },function complete(error) {
+                    if (error) {
+                        console.log(error)
+                    }
+                    else {
                         // console.log(res);
                         // console.log("stage 2");
-                        deferred.resolve(res);
 
                         // callback(null,res);
                         // deferred.resolve(res);
+                         callback(null,res);
                     }
                 }
             );            
-            // var datas = [1,2];
-            // async.forEachOf(datas, function(value, key,eachCallback){
-                // console.log(res.datas.ownCourses.length)
-                // Course.findOne({courseID:value.courseID}, function(err, course){
-                //     if(err){
-                //         console.log(err);
-                //     }else{
-                //         if(course){
-                //             //find
-                //                 console.log(datas[key]);
-                //                 // // res.datas.ownCourses[key].courseDatas = [];
-                //                 // // res.datas.ownCourses[key].courseDatas.push(course.courseDatas);
-                //                 // console.log(JSON.stringify(res.datas));
-                //         }else{
-                //             //error find
-                //         }
-                //     }
-                // });
-            // },function eachCallback(err){
+        }
+    ],function(err,res) {
+        console.log(res);
+        deferred.resolve(res);
+    });
+ 
+}
+function setUserJoinCourse (data,deferred){
+    var res={};
+    var joincourseId = data.joincourseId;
+    var ownerFBuid = data.ownerFBuid;
 
-            // })
-            // });
-            // console.log("my Res is---->"+res.datas.joinCourses);
-            // for(var i=0; i<res.datas.ownCourses.length; i++){
-            //     //need respond courseName ,acadeYear ,forClass , joinMember
-            //     // console.log(res.datas.ownCourses[0]);
-                // Course.findOne({courseID:res.datas.ownCourses[i].courseID},function(err, course){
+    Course.findOne({courseID:joincourseId}, function(err, course){
+        if(err){
+            console.log(err);
+        }else{
+            if(course){
+                var courseName = course.courseName;
+
+                //check ownisExist
+                // User.findOne({oauthID:ownerFBuid}, function(err, user){
                 //     if(err){
                 //         console.log(err);
                 //     }else{
-                //         if(course){
-                //             //find course                
-                //             console.log("find data!!!!"+course);
-                //             //res.datas.ownCourses[i].courseDatas = course.courseDatas;
+                //         if(user){
+
+                //             async.parallel([
+                //                 function(callback){
+                //                     asyncEachObject(user.ownCourses,
+                //                         function findCourseIsOwn(value, key, nextEach) {
+                //                             if(JSON.stringify(user.ownCourses[key].courseID) === joincourseId){
+
+                //                                 console.log("error , find already exist!!");
+                //                             };
+                //                             nextEach();
+
+                //                         },function complete(error) {
+                //                             console.log(error);
+                //                             callback(null,'test1');
+                //                         }
+                //                     );
+                //                 },
+                //                 function(callback){
+
+                //                 }
+
+                //             ],function(err, result){
+                //                 deferred.resolve(res);   
+                //             }
+
+                //             );
+                //             //find user
+                //             asyncEachObject(user.ownCourses,
+                //                 function findCourseIsOwn(value, key, nextEach) {
+                //                     if(JSON.stringify(user.ownCourses[key].courseID) === joincourseId){
+
+                //                         console.log("error , find already exist!!");
+                //                     };
+                //                     nextEach();
+
+                //                 },function complete(error) {
+                //                     deferred.resolve(res);    
+
+                //                     console.log(error);
+                //                 }
+                //             );
+
+
                 //         }else{
-                //             //cant find course
+                //             //cant find user , error
+                //             console.log("error");
                 //         }
                 //     }
                 // });
-                // console.log("my res is :");
-                // console.log(res);
+                console.log("find the course"+courseName);
+                course.joinMember.push(ownerFBuid);
+                course.save(function(err ) {
+
+                    if(err){
+                        console.log(err);
+                    }else{
+                        // console.log("store success!!!!");
+                        User.findOne({oauthID:ownerFBuid}, function(err, user){
+                            var CourseData = {
+                                courseName: courseName,
+                                courseID: joincourseId
+                            }            
+                            user.joinCourses.push(CourseData);
+                            user.save(function(err) {
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    console.log("write back to user");
+
+                                    deferred.resolve(res);  
+                                }
+                            });
+                        });
+                    }
+                })
+            }else{ 
+                res= {
+                    type :"error",
+                    resultCode: "E01"
+                }
+                console.log("can't find course");
+
+                deferred.resolve(res);
+            }
 
         }
-    ],function(res) {
-        // console.log("stage 3");
-        // console.log("My respond:"+res);
     });
-    // // userApi.getUserCourseInfo(fbuid,deferred);
-    // User.findOne({oauthID:fbuid}, function(err, user){
-    //     //return own data and join data
-    //     console.log("data"+ user.ownCourses);
-    //     res.datas.ownCourses=user.ownCourses;
-    //     for(var i=0 ; i<user.joinCourses.length;i++){
-    //         console.log("start use "+user.joinCourses[i].courseID+"to compare");
-    //         var flag = 0
-    //         for(var j=0 ; j<user.ownCourses.length;j++){
-    //             console.log("income obj: "+user.ownCourses[j].courseID+"to compare");
-    //             if(user.ownCourses[j].courseID === user.joinCourses[i].courseID){
-    //                 console.log("match!"+user.ownCourses[j].courseID);
-    //                 flag = 1;   
-    //                 break;
-    //             }
-    //         }
-    //         if(flag==1){
-    //             continue;
-    //         }else{
-    //             res.datas.joinCourses.push(user.joinCourses[i]);
-    //         }
-    //     }
-    // console.log("length------->ownCourses");
-    // console.log(res.datas.ownCourses.length);
-
-    // console.log(res.datas.ownCourses);
-    // console.log("length------->joinCourses");
-    // console.log(res.datas.joinCourses.length);
-
-    // });
-
-
-    // //A for loop to fetch data from OwnCourse from Course collection
-
-
-    // //A for loop to fetch data from JoinCourse from Course collection
-
-    // for(var i=0; i<res.datas.joinCourses.length;i++){
-
-    //     var q_data = res.datas.joinCourses[i];
-
-
-    //     Course.findOne({joinCourses:q_data.courseID},function(err, course){
-    //         console.log("find data!!!!");
-    //     });
-    // }
-
-
-
-}
+} 
 module.exports = {
     setNewCourse: function(data){
         var deferred = new promise.Deferred();
@@ -317,6 +318,12 @@ module.exports = {
         var deferred = new promise.Deferred();
         getUserCourseDatas(fbuid,deferred);
         return deferred;
+    },
+    setUserJoinCourse : function (data){
+        var deferred = new promise.Deferred();
+        setUserJoinCourse(data,deferred);
+        return deferred;
+
     }
 
 }

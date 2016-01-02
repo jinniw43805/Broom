@@ -27,7 +27,7 @@ router.get('/success',isLoggedIn ,function(req, res, next){
 	var GetCourseDataApi = courseApi.getUserCourseDatas(req.user.oauthID);
 	promise.when(GetCourseDataApi).done(function(){
 
-		console.log("Show current res:  "+ JSON.stringify(arguments[0],null,2));
+		// console.log("Show current res:  "+ JSON.stringify(arguments[0],null,2));
 		// console.log(arguments[0]);
 		// console.log("userCourse->>>>>>"+JSON.stringify(arguments[0]));
 		var FetchCourseData = arguments[0];
@@ -87,14 +87,26 @@ router.post('/addNewNote',function(req, res, next) {
 	var AddNoteApi = courseApi.setNewNote(req.body);
 		promise.when(AddNoteApi).done(function(){
 			// console.log("this time:"+req.user.ownCourses);
-		res.redirect('/success');
-	});
+			res.redirect('/success');
+		});
 });
 // router.post('/isUserHadCourse', function(req, res, next) {
 // 	console.log("ajax data is :"+req.body);
 // 	// var UserHadCourseApi = userApi.getHasCourse(req.body);
 // });
-
+router.post('/addJoinCourse', function(req, res, next) {
+	console.log(req.body);
+	var JoinCourseApi = courseApi.setUserJoinCourse(req.body);
+		promise.when(JoinCourseApi).done(function(){
+			arguments[0]
+			if(arguments[0].type==="error"){
+				//error
+				res.send("error enter ");
+			}else{
+				res.redirect('/success');			
+			}
+		})
+});
 
 module.exports = router;
 

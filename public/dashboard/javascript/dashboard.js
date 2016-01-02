@@ -58,6 +58,15 @@ $(document).ready(function() {
         $('#addCourseModal').modal('toggle');
     }); 
 
+    $('#addJoinCourseBtn').click(function(event) {
+        var userID = userData.oauthID;
+
+        var ownerFBuid = document.getElementById('JoinCouserInputOwnerFBuid');
+        ownerFBuid.value = userID;
+        $('#addJoinCourseModal').modal('toggle');
+
+    });
+
     $('.CourseAddNote').click(function(event) {
         console.log("hello world:"+this.id);
 
@@ -122,6 +131,18 @@ $(document).ready(function() {
                     }
                 }
 
+                for (var i = 0; i < CourseData.datas.joinCourses.length; i++) {
+                    for (var j = 0; j < CourseData.datas.joinCourses[i].NoteData.length; j++) {
+                        if(CourseData.datas.joinCourses[i].NoteData[j].noteID === para){
+                            flag = 1 ;
+                            break;
+                        }
+                    }
+                    if(flag == 1 ){
+                        break;
+                    }
+                }
+
                 if(flag === 1) {
                     console.log("find data");
                     // render 
@@ -130,7 +151,6 @@ $(document).ready(function() {
 
                 }else{
                     console.log("not find data!!");
-
                     alert("you dont have the right");
                 }
             }

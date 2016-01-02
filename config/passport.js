@@ -31,6 +31,12 @@ module.exports = function(passport) {
                 done(null, user);
 
             } else {
+                console.log("email: "+JSON.stringify(profile,null,2));
+                if(profile.emails ===undefined ){
+                    console.log("get email error , ");
+                    profile.emails= [];
+                    profile.emails[0]="";
+                }
                 console.log("start storing...");
                 var StoreUser = new User({
                     oauthID: profile.id,
