@@ -189,8 +189,27 @@ $(document).ready(function() {
         })();
 
 
+
         //cocoPad init
         cocoPadRef = noteDataBaseRegister.getExampleRef();
+
+        var states = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.whitespace,
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          // `states` is an array of state names defined in "The Basics"
+          local: ['淡江大學', '東海大學'
+            ]
+        });    
+        $('#university').typeahead({
+             hint: true,
+              highlight: true,
+              minLength: 1
+            },
+            {
+            name: 'countries',
+            source: states
+        });
+
 
     }());
 });

@@ -24,7 +24,8 @@
     "firebase": "2.2.4",
     "codemirror": "5.2.0",
     "firepad": "1.2.0",
-    "ejs": "~1.0.0"
+    "ejs": "~1.0.0",
+    "form.validation": "*"
   },
   "overrides": {
     "bootstrap": {
@@ -66,9 +67,22 @@
         "dist/firepad.js"
       ]
     },
-    "ejs":{
+    "ejs": {
       "main": [
         "ejs.min.js"
+      ]
+    },
+    "typeahead.js": {
+      "main": [
+        "dist/bloodhound.js",
+        "dist/typeahead.bundle.js",
+        "dist/typeahead.jquery.js"
+      ]
+    },
+    "form.validation": {
+      "main": [
+        "dist/css/formValidation.css",
+        "dist/js/formValidation.js"
       ]
     }
   }

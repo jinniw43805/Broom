@@ -212,6 +212,8 @@
                 <div class="span12 text-center">
                 </div>
                 </a>
+                <ul>
+                </ul>
                 <ul id=<%=CourseData.datas.ownCourses[i].courseID+"col"%> class="<% if(CourseData.datas.ownCourses.length > 2) {%>
                         collapse 
                         <% } else { %>
@@ -220,9 +222,14 @@
                         ">
                     <% for(var j=0; j<CourseData.datas.ownCourses[i].NoteData.length;j++){%>
 
-                        <li>
-                            <a href=<%="#"+CourseData.datas.ownCourses[i].NoteData[j].noteID%> id=<%=CourseData.datas.ownCourses[i].NoteData[j].noteID%> class="RenderNote"><%=CourseData.datas.ownCourses[i].NoteData[j].noteName %></a>
-                        </li>                    
+                    <li>
+                        <a href="#">
+                            ID: <%=CourseData.datas.ownCourses[i].courseID%>
+                        </a>
+                    </li>
+                    <li>
+                        <a href=<%="#"+CourseData.datas.ownCourses[i].NoteData[j].noteID%> id=<%=CourseData.datas.ownCourses[i].NoteData[j].noteID%> class="RenderNote"><%=CourseData.datas.ownCourses[i].NoteData[j].noteName %></a>
+                    </li>                    
                     <% } %>
 
                     <li>
