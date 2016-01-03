@@ -196,13 +196,13 @@
             </li>
 
             <li>
-                <a href="#" id="addJoinCourseBtn"><i class="fa fa-fw fa-plus-square"></i> Join Other Course</a>
+                <a href="#" id="addJoinCourseBtn"><i class="fa fa-users"></i>&nbsp;  Join Other Course</a>
             </li>
             <!-- Showing all own course -->
             <% for(var i=0; i<CourseData.datas.ownCourses.length;i++){%>
             <li>     
                 <a href="javascript:;" data-toggle="collapse" data-target=<%="#"+CourseData.datas.ownCourses[i].courseID+"col"%>>
-                        <i class="fa fa-fw fa-arrows-v"></i>
+                        <i class="fa fa-folder-open"></i>
                         <%=CourseData.datas.ownCourses[i].courseName%>
                         <i class="fa fa-fw fa-caret-down"></i>
                         <span class="badge">
@@ -220,20 +220,28 @@
                         collapse 
                         <% } %>
                         ">
-                    <% for(var j=0; j<CourseData.datas.ownCourses[i].NoteData.length;j++){%>
 
                     <li>
                         <a href="#">
                             ID: <%=CourseData.datas.ownCourses[i].courseID%>
                         </a>
                     </li>
+                    <% for(var j=0; j<CourseData.datas.ownCourses[i].NoteData.length;j++){%>
+
+
                     <li>
-                        <a href=<%="#"+CourseData.datas.ownCourses[i].NoteData[j].noteID%> id=<%=CourseData.datas.ownCourses[i].NoteData[j].noteID%> class="RenderNote"><%=CourseData.datas.ownCourses[i].NoteData[j].noteName %></a>
+                        <a href=<%="#"+CourseData.datas.ownCourses[i].NoteData[j].noteID%> id=<%=CourseData.datas.ownCourses[i].NoteData[j].noteID%> class="RenderNote"><i class="fa fa-pencil"></i>
+                    <%=" "+CourseData.datas.ownCourses[i].NoteData[j].noteName %></a>
                     </li>                    
                     <% } %>
 
                     <li>
-                        <a href="#" id=<%=CourseData.datas.ownCourses[i].courseID%> class="CourseAddNote">ADD Note</a>
+                        <a href="#" id=<%=CourseData.datas.ownCourses[i].courseID%> class="CourseAddNote">
+                        <i class="fa fa-plus-circle"></i>
+
+                        
+                        Note
+                        </a>
                     </li>
                 </ul>
             </li>

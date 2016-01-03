@@ -9,12 +9,12 @@
                 <h3 class="panel-title text-center">請填寫課程名稱<br><small>Please complete full information</small></h3>
             </div>
             <div class="panel-body">
-                <form role="form" method="post" action="/addNewCourse" >
+                <form role="form" method="post" action="/addNewCourse" id="addNewCourseForm">
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 col-md-3">
                         <label for="InputCourseName">Course Name</label>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="col-xs-6 col-sm-6 col-md-6 form-group" >
                             <input type="text" name="courseName" id="Coursename" class="form-control input-sm" placeholder="課程名稱">
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
@@ -25,7 +25,7 @@
                         <div class="col-xs-3 col-sm-3 col-md-3">
                         <label for="InputOwnerName">Course Owner</label>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="col-xs-6 col-sm-6 col-md-6 form-group" >
                           <input id="AddCouserInputOwnerName"class="form-control" type="text" name="ownerName" value="" placeholder=""readonly>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
@@ -36,7 +36,7 @@
                         <div class="col-xs-3 col-sm-3 col-md-3">
                         <label for="InputAcadeYear">Acade Year</label>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="col-xs-6 col-sm-6 col-md-6 form-group">
                            <select class="form-control" name="acadeYear">
                             <option>104_上</option>
                             <option>104_下</option>
@@ -50,8 +50,8 @@
                         <div class="col-xs-3 col-sm-3 col-md-3">
                         <label for="InputForClass">Class</label>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <input type="text" name="forClass" id="forClass" class="form-control input-sm" placeholder="系級">
+                        <div class="col-xs-6 col-sm-6 col-md-6 form-group">
+                            <input type="text" name="forClass" id="forClass" class="form-control input-sm" placeholder="Class">
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                         </div>

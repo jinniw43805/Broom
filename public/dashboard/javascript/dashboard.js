@@ -349,6 +349,11 @@ $(document).ready(function() {
                         validators: {
                             notEmpty: {
                                 message: "Can't be Empty!!"
+                            },
+                            stringLength: {
+                                min: 8,
+                                max: 8,
+                                message: 'The Course ID must be 8 in length'
                             }
                         }
                     }

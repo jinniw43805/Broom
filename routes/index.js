@@ -64,7 +64,7 @@ router.get('/logout', function(req, res) {
 
 router.post('/completeData', function(req, res, next) {
 	console.log("try to completeData");
-	// console.log(req.body);
+	console.log(req.body);
 	// console.log(req.cookies);
 	var CompleteDataApi = userApi.setUserCompleteInfo(req.body,req.cookies.fbuid);
 		promise.when(CompleteDataApi).done(function(){
@@ -99,7 +99,7 @@ router.post('/addJoinCourse', function(req, res, next) {
 		promise.when(JoinCourseApi).done(function(){
 			if(arguments[0].type==="error"){
 				//error
-				res.send("error enter ");
+				res.send("Can't find the course !");
 			}else{
 				res.redirect('/success');			
 			}
