@@ -76,7 +76,6 @@ router.post('/addNewCourse',function(req, res, next) {
 	// console.log(req.body);
 	var AddCourseApi = courseApi.setNewCourse(req.body);
 		promise.when(AddCourseApi).done(function(){
-			console.log("this time:"+req.user.ownCourses);
 		res.redirect('/success');
 	});
 });

@@ -32,7 +32,12 @@
       "main": [
         "dist/css/bootstrap.css",
         "dist/css/bootstrap.css.map",
-        "dist/js/bootstrap.js"
+        "dist/js/bootstrap.js",
+        "fonts/glyphicons-halflings-regular.eot",
+        "fonts/glyphicons-halflings-regular.svg",
+        "fonts/glyphicons-halflings-regular.ttf",
+        "fonts/glyphicons-halflings-regular.woff",
+        "fonts/glyphicons-halflings-regular.woff2"
       ]
     },
     "font-awesome": {
@@ -82,7 +87,8 @@
     "form.validation": {
       "main": [
         "dist/css/formValidation.css",
-        "dist/js/formValidation.js"
+        "dist/js/formValidation.js",
+        "dist/js/framework/bootstrap.min.js"
       ]
     }
   }
