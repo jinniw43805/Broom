@@ -102,7 +102,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= user.name %> <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="/profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a href="#" class="Profile"><i class="fa fa-fw fa-user "></i> Profile</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
@@ -250,9 +250,12 @@
             <% for(var i=0; i<CourseData.datas.joinCourses.length;i++){%>
             <li>     
                 <a href="javascript:;" data-toggle="collapse" data-target=<%="#"+CourseData.datas.joinCourses[i].courseID+"col"%>>
-                        <i class="fa fa-fw fa-arrows-v"></i>
+                        <i class="fa fa-folder-open"></i>
                         <%=CourseData.datas.joinCourses[i].courseName%>
                         <i class="fa fa-fw fa-caret-down"></i>
+                        <span class="badge">
+                            <%=CourseData.datas.joinCourses[i].NoteData.length%>   
+                        </span>
                         <h6><span class="label label-pill label-info ">Join</span></h6>
                 <div class="span12 text-center">
                 </div>
@@ -263,15 +266,24 @@
                         collapse 
                         <% } %>
                         ">
+                    <li>
+                        <a href="#">
+                            ID: <%=CourseData.datas.joinCourses[i].courseID%>
+                        </a>
+                    </li>
                     <% for(var j=0; j<CourseData.datas.joinCourses[i].NoteData.length;j++){%>
 
                         <li>
-                            <a href=<%="#"+CourseData.datas.joinCourses[i].NoteData[j].noteID%> id=<%=CourseData.datas.joinCourses[i].NoteData[j].noteID%> class="RenderNote"><%=CourseData.datas.joinCourses[i].NoteData[j].noteName %></a>
+                            <a href=<%="#"+CourseData.datas.joinCourses[i].NoteData[j].noteID%> id=<%=CourseData.datas.joinCourses[i].NoteData[j].noteID%> class="RenderNote">
+                            <i class="fa fa-pencil"></i>
+                            <%=CourseData.datas.joinCourses[i].NoteData[j].noteName %></a>
                         </li>                    
                     <% } %>
 
                     <li>
-                        <a href="#" id=<%=CourseData.datas.joinCourses[i].courseID%> class="CourseAddNote">ADD Note</a>
+                        <a href="#" id=<%=CourseData.datas.joinCourses[i].courseID%> class="CourseAddNote">
+<i class="fa fa-plus-circle"></i>
+                        Note</a>
                     </li>
                 </ul>
             </li>

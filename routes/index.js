@@ -45,6 +45,17 @@ router.get('/success',isLoggedIn ,function(req, res, next){
 
 });
 
+
+
+router.get('/profile',isLoggedIn ,function(req, res, next){
+	res.cookie('fbuid',req.user.oauthID, { maxAge: 900000, httpOnly: true });
+	  res.render('profile', {
+	  	user : req.user,
+	  	isRegCompletely : req.user.isRegCompletely,
+	  });
+
+});
+
 router.get('/error', function(req, res, next) {
 	  res.send("Error logging in.");
 });

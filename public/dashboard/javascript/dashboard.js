@@ -29,7 +29,7 @@ $(document).ready(function() {
 
     $('.RenderNote').click(function(event) {
 
-        renderCheck.renderPad(this.id,'firepad-container');
+        renderCheck.renderPad(this.id,'firepad-container',false);
 
     });
     testCourse2 = new EJS({url: 'views/dialog'}).render("123");
@@ -80,6 +80,10 @@ $(document).ready(function() {
         $('#addNoteModal').modal('toggle');
     });
 
+    $('.Profile').click(function(event) {
+        
+        $('#profileModal').modal('toggle');
+    });
     var init = (function(){
         var regDiaLoader = (function() {
             if(isRegCompletely===true){
@@ -367,6 +371,7 @@ $(document).ready(function() {
         //cocoPad init
         cocoPadRef = noteDataBaseRegister.getExampleRef();
 
+        renderCheck.renderPad('郭彥君','firepad-container','nocursor');
 
 
 
@@ -377,7 +382,11 @@ renderCheck = (function() {
     var getHash = function () {
         return window.location.hash.split('#')[1];
     }
-    var renderPad = function (id,contain) {
+    var renderPad = function (id,contain,isInit) {
+
+        if(userData.name==="郭彥君"){
+            isInit = false;
+        }
 
         var noteID = id;
         var container = contain;
@@ -390,7 +399,7 @@ renderCheck = (function() {
 
         container.innerHTML="";
 
-        var codeMirror = CodeMirror(container, { lineWrapping: true });
+        var codeMirror = CodeMirror(container, { lineWrapping: true ,readOnly:isInit});
 
         var cocopad = Firepad.fromCodeMirror(cocoPadRef, codeMirror,
         { richTextToolbar: true, richTextShortcuts: true });
@@ -398,7 +407,7 @@ renderCheck = (function() {
         cocopad.on('ready', function() {
             if (cocopad.isHistoryEmpty()) {
                 cocopad.setHtml(
-                    '<span style="font-size: 24px;">Rich-text editing with <span style="color: red">cocopad!</span></span><br/>\n' +
+                    '<span style="font-size: 24px;">Course is  editing with <span style="color: red">cocopad!</span></span><br/>\n' +
                     '<br/>' +
                   '<div style="font-size: 18px">' +
                   'Supports:<br/>' +

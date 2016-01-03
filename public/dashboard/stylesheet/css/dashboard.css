@@ -16,7 +16,10 @@ body {
         margin-top: 50px;
     }
 }
-
+.powered-by-firepad {
+    background-image : url(../img/CocoPad.png);
+    height: 35px
+}
 .owntype {
     
 }
