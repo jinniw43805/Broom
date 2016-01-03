@@ -81,7 +81,7 @@ $(document).ready(function() {
     });
 
     $('.Profile').click(function(event) {
-        
+
         $('#profileModal').modal('toggle');
     });
     var init = (function(){
@@ -121,6 +121,9 @@ $(document).ready(function() {
 
             if(para===undefined){
                 console.log("hash is undefined");
+
+                renderCheck.renderPad('郭彥君','firepad-container','nocursor');
+
             }else{
                 var flag = 0 ;
 
@@ -370,8 +373,6 @@ $(document).ready(function() {
 
         //cocoPad init
         cocoPadRef = noteDataBaseRegister.getExampleRef();
-
-        renderCheck.renderPad('郭彥君','firepad-container','nocursor');
 
 
 
