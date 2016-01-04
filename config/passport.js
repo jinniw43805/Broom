@@ -28,7 +28,11 @@ module.exports = function(passport) {
             }
             if (!err && user != null) {
                 //can find user
-                done(null, user);
+                user.photo = profile.photos[0].value
+                user.save(function(err){
+                    done(null, user);
+
+                });
 
             } else {
                 console.log("email: "+JSON.stringify(profile,null,2));

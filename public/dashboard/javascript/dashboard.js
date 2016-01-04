@@ -355,7 +355,7 @@ $(document).ready(function() {
                     joincourseId: {
                         validators: {
                             notEmpty: {
-                                message: "Can't be Empty!!"
+                                message: "Must be Number!!"
                             },
                             stringLength: {
                                 min: 8,
