@@ -30,7 +30,7 @@ $(document).ready(function() {
     $('.RenderNote').click(function(event) {
 
         renderCheck.renderPad(this.id,'firepad-container',false);
-
+        $('.navbar-ex1-collapse').collapse('toggle');
     });
     testCourse2 = new EJS({url: 'views/dialog'}).render("123");
 
