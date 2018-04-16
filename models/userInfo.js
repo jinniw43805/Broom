@@ -24,6 +24,8 @@ var CoursesModal = new Schema({
 
 module.exports = mongoose.model('User', new Schema({
     // User basic 
+    localUserName: String,
+    localPassword: String,
     oauthID: Number,
     name: String,
     emails: String,

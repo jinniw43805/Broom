@@ -10,7 +10,37 @@ router.get('/', function(req, res, next) {
   res.render('index.html');
 });
 
+router.get('/login', function(req, res, next) {
+  res.render('login.html');
+});
+router.get('/signup', function(req, res, next) {
+  res.render('signup.html');
+});
 
+router.get('/auth/localok', function(req, res, next) {
+  res.send("ok");
+});
+router.get('/auth/localfail', function(req, res, next) {
+  res.send("fail");
+});
+
+router.get('/auth/signupok', function(req, res, next) {
+  res.send("ok");
+});
+router.get('/auth/signupfail', function(req, res, next) {
+  res.send("fail");
+});
+
+router.post('/auth/local', passport.authenticate('login',{
+  successRedirect : '/auth/localok',
+  failureRedirect : '/auth/localfail',
+  failureFlash : true
+}));
+router.post('/auth/signup', passport.authenticate('signup',{
+  successRedirect : '/auth/signupok',
+  failureRedirect : '/auth/signupfail',
+  failureFlash : true
+}));
 // =====================================
 // FACEBOOK ROUTES =====================
 // =====================================
