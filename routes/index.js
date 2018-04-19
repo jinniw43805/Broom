@@ -18,14 +18,33 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.get('/auth/localok', function(req, res, next) {
-  res.send("ok");
+  req.user.oauthID = 645368208899955.0
+	var GetCourseDataApi = courseApi.getUserCourseDatas(req.user.oauthID);
+	promise.when(GetCourseDataApi).done(function(){
+  console.log("user data:")
+  console.log(req.user.localUserName)
+		// console.log("Show current res:  "+ JSON.stringify(arguments[0],null,2));
+		// console.log(arguments[0]);
+		// console.log("userCourse->>>>>>"+JSON.stringify(arguments[0]));
+		var FetchCourseData = arguments[0];
+
+    res.cookie('userName', req.user.localUserName, { maxAge: 900000, httpOnly: true });
+		res.render('dashboard', {
+			user : req.user,
+			isRegCompletely : req.user.isRegCompletely,
+			CourseData : FetchCourseData
+		});
+
+	});
+
+	// console.log("user information send to front:"+req.user);
 });
 router.get('/auth/localfail', function(req, res, next) {
   res.send("fail");
 });
 
 router.get('/auth/signupok', function(req, res, next) {
-  res.send("ok");
+  res.redirect('/auth/localok');
 });
 router.get('/auth/signupfail', function(req, res, next) {
   res.send("fail");
@@ -105,12 +124,12 @@ router.get('/logout', function(req, res) {
 
 router.post('/completeData', function(req, res, next) {
 	console.log("try to completeData");
-	console.log(req.body);
-	// console.log(req.cookies);
-	var CompleteDataApi = userApi.setUserCompleteInfo(req.body,req.cookies.fbuid);
-		promise.when(CompleteDataApi).done(function(){
-		res.redirect('/success');
-	});
+	//console.log(req.body);
+  console.log(req.cookies);
+  var CompleteDataApi = userApi.setUserCompleteInfo(req.body,req.cookies.userName);
+    promise.when(CompleteDataApi).done(function(){
+    res.redirect('/auth/localok');
+  });
 });
 
 router.post('/addNewCourse',function(req, res, next) {
@@ -163,7 +182,7 @@ function isLoggedIn(req, res, next) {
 		return next();
 	else{
 	// if they aren't redirect them to the home page
-	res.redirect('/');
+	res.redirect('/auth/localok');
 	}
 }
 function isRegCompletelyRight(req, res, next) {

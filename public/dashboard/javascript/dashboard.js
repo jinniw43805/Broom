@@ -1,7 +1,6 @@
 $(document).ready(function() {
     noteDataBaseRegister=  (function() {
         var getExampleRef= function () {
-
             var ref = new Firebase('https://coconutdata.firebaseio.com/');
             // var hash = window.location.hash.replace(/#/g, '');
             // if (hash) {
@@ -22,11 +21,7 @@ $(document).ready(function() {
             helloworld:helloworld
         };
     }());
-
-
     cocoPadRef = noteDataBaseRegister.getExampleRef();
-
-
     $('.RenderNote').click(function(event) {
 
         renderCheck.renderPad(this.id,'firepad-container',false);

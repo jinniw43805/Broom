@@ -5,7 +5,7 @@ var promise = require('jquery-deferred');
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 var User = require('../models/userInfo.js');
-function setUserCompleteInfo(data,userID,deferred){
+function setUserCompleteInfo(data, userID, deferred){
     var res = {};
     var university = data.university;
     var uni_department = data.uni_department;
@@ -13,7 +13,8 @@ function setUserCompleteInfo(data,userID,deferred){
 
     //success , storing into db
     console.log("data:"+university+"userID:"+userID);
-    User.findOne({oauthID:userID}, function(err, user) {
+    console.log("catch userID: "+ userID)
+    User.findOne({ localUserName: userID}, function(err, user) {
         user.isRegCompletely = true;
         user.university = university;
         user.uni_department = uni_department;
