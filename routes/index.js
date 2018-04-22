@@ -16,6 +16,14 @@ router.get('/login', function(req, res, next) {
 router.get('/signup', function(req, res, next) {
   res.render('signup.html');
 });
+router.get('/dashboard2', function(req, res, next) {
+  res.render('dashboard2');
+});
+router.get('/addroom', function(req, res, next) {
+  res.render('addroom');
+});
+
+
 
 router.get('/auth/localok', function(req, res, next) {
   req.user.oauthID = 645368208899955.0
