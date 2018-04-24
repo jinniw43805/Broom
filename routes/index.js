@@ -18,46 +18,36 @@ router.get('/signup', function(req, res, next) {
   res.render('signup.html');
 });
 router.get('/dashboard2', function(req, res, next) {
-  //var data;
-  //var date = new Date();
-  //data.date = (date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + (date.getDate() + i));
-  //data.provider = "UTD"
 
-  //var getRoomStatusApi = roomApi.getAllRoomStatus(data);
-  //promise.when(getRoomStatusApi).done(function(){
-    //var fetchRoomStatus = arguments[0];
-  //})
-  //res.render('dashboard2', {
-    //roomStatus : fetchRoomStatus 
-  //});
-  res.render('dashboard2');
+  console.log("req.user")  
+  console.log(req)  
+  res.render('dashboard2', {
+    username: ""
+  });
+
 });
 router.get('/addroom', function(req, res, next) {
   res.render('addroom');
 });
 
+router.get('/admin', function(req, res, next) {
+  res.render('admin');
+});
 
 
 router.get('/auth/localok', function(req, res, next) {
-  req.user.oauthID = 645368208899955.0
-	var GetCourseDataApi = courseApi.getUserCourseDatas(req.user.oauthID);
-	promise.when(GetCourseDataApi).done(function(){
-  console.log("user data:")
-  console.log(req.user.localUserName)
-		// console.log("Show current res:  "+ JSON.stringify(arguments[0],null,2));
-		// console.log(arguments[0]);
-		// console.log("userCourse->>>>>>"+JSON.stringify(arguments[0]));
-		var FetchCourseData = arguments[0];
-
+  //if(req.cookies.userName){
+    //console.log("find cookie")   
+  //}else{
     res.cookie('userName', req.user.localUserName, { maxAge: 900000, httpOnly: true });
-		res.render('dashboard', {
-			user : req.user,
-			isRegCompletely : req.user.isRegCompletely,
-			CourseData : FetchCourseData
-		});
+  //}
+    console.log("username")
 
-	});
+    console.log(req.user.localUserName)
 
+    res.render('dashboard2',{
+      username : req.user.localUserName
+    });
 	// console.log("user information send to front:"+req.user);
 });
 router.get('/auth/localfail', function(req, res, next) {
@@ -161,6 +151,14 @@ router.post('/addNewRoomInfo',function(req, res, next) {
 		res.send('push ok');
 	});
 });
+router.post('/addUserRecord',function(req, res, next) {
+  console.log("req.body:"+req.body.provider)
+	var addUserRecord = userApi.setNewUserRecord(req.body);
+		promise.when(addUserRecord).done(function(){
+    console.log("Insert Success");
+		res.send('push ok');
+	});
+});
 
 //router.post('/addNewCourse',function(req, res, next) {
 	//// console.log(req.body);
@@ -207,6 +205,13 @@ router.post('/isExistCourse', function(req, res, next) {
 router.post('/getAllRoomStatus', function(req, res, next) {
 	var getAllRoomStatus = roomApi.getAllRoomStatus(req.body);
 		promise.when(getAllRoomStatus).done(function(){
+			console.log("respond data :"+ JSON.stringify(arguments[0], null, 2));
+			res.json(arguments[0]);
+		});
+});
+router.post('/getRoomInfo', function(req, res, next) {
+	var getRoomInfo = roomApi.getRoomInfo(req.body);
+		promise.when(getRoomInfo).done(function(){
 			console.log("respond data :"+ JSON.stringify(arguments[0], null, 2));
 			res.json(arguments[0]);
 		});

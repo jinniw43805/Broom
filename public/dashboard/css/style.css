@@ -8,6 +8,12 @@
 @import url(../icons/material-design-iconic-font/css/materialdesignicons.min.css);
 @import url(spinners.css);
 @import url(animate.css);
+
+
+table td.highlighted {
+  background-color:#999;
+}
+
 /*
     Template: Ela Admin
     Author: Zebra Theme

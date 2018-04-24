@@ -20,12 +20,16 @@ var CoursesModal = new Schema({
     courseID: Number,
     NoteData: [NotesModal]
 });
-
+var recordModel = new Schema({
+  roomID : String,
+  hourBit : Number
+});
 
 module.exports = mongoose.model('User', new Schema({
     // User basic 
     localUserName: String,
     localPassword: String,
+    isAdmin: Boolean,
     oauthID: Number,
     name: String,
     emails: String,
@@ -42,6 +46,7 @@ module.exports = mongoose.model('User', new Schema({
     // User Courses
     ownCourses: [CoursesModal],
     joinCourses: [CoursesModal],
+    recordModels : [recordModel],
     created: String
 }));
 

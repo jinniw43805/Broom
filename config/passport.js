@@ -84,7 +84,11 @@ module.exports = function(passport) {
     ));
 
     passport.use('signup', new LocalStrategy(
-      function(username, password, done) {
+      {passReqToCallback: true},
+      function(req, username, password, done) {
+        console.log("isAdmin:")
+        console.log(req.body.isAdmin)
+        isAdmin = req.body.isAdmin
         console.log("username:")
         console.log(username)
         console.log("password")
@@ -111,6 +115,8 @@ module.exports = function(passport) {
                       //photo: profile.photos[0].value,
                       //gender: profile.gender,
                       //provider: profile.provider,
+                      provider: "UTD",
+                      isAdmin: isAdmin,
                       isRegCompletely: false,
                       created: Date.now()
                   });

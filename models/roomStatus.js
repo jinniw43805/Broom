@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 var db = require('../config/db.js');
+var roomInfo = require('./roomInfo.js');
 var mongodbUri = db.dbURL;
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 var Schema = mongoose.Schema;
@@ -19,9 +20,18 @@ var dataset = new Schema({
   //roomID : String,
   info : {
     type : Schema.Types.ObjectId,
-    ref : 'roominfo'
+    ref : 'roomInfo'
   },
-  occupys: [occupys]
+  occupys: [occupys],
+  whiteboard : Boolean,
+  computer : Boolean,
+  projector : Boolean,
+  disabilityFriendly : Boolean,
+  podium : Boolean,
+  roomLocation : String,
+  roomNumber : Number,
+  capacity : Number,
+  mapPath : String
 })
 module.exports = mongoose.model('roomstatus', new Schema({
     //Course Basic Information
