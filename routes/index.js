@@ -31,7 +31,6 @@ router.get('/dashboard2', function(req, res, next) {
     //roomStatus : fetchRoomStatus 
   //});
   res.render('dashboard2');
-
 });
 router.get('/addroom', function(req, res, next) {
   res.render('addroom');
@@ -208,6 +207,13 @@ router.post('/isExistCourse', function(req, res, next) {
 router.post('/getAllRoomStatus', function(req, res, next) {
 	var getAllRoomStatus = roomApi.getAllRoomStatus(req.body);
 		promise.when(getAllRoomStatus).done(function(){
+			console.log("respond data :"+ JSON.stringify(arguments[0], null, 2));
+			res.json(arguments[0]);
+		});
+});
+router.post('/getUserInfo', function(req, res, next) {
+	var getUserInfo = userApi.getUserInfo(req.body);
+		promise.when(getUserInfo).done(function(){
 			console.log("respond data :"+ JSON.stringify(arguments[0], null, 2));
 			res.json(arguments[0]);
 		});

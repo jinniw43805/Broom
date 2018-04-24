@@ -64,7 +64,25 @@ function addNewCourse(userID,courseName,courseID,deferred){
     });
 
 }
+
+function getUserInfo(data, deferred){
+  User.find({'localUserName' : data.userName}
+  , function(err, result){
+    if(err){
+      console.log(err)
+    }else{
+      if(result){
+        deferred.resolve(result)
+      }
+    }
+  })
+}
 module.exports = {
+    getUserInfo : function(data){
+      var deferred = new promise.Deferred();
+      getUserInfo(data, deferred);
+      return deferred;
+    },
     setUserCompleteInfo: function(data,userID){
         var deferred = new promise.Deferred();
         setUserCompleteInfo(data,userID,deferred);
