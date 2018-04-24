@@ -128,4 +128,92 @@ $(function() {
         $('a[data-action="close"]').on("click", function() {
             $(this).closest(".card").removeClass().slideUp("fast");
         });
+
+
+        //console.log("helloworld")
+});
+var roomStatus
+$(document).ready(function() {
+
+    //Custom javascripts
+    //
+
+    var renderRoomStatus = (function() {
+        var table = $('#example23').DataTable({
+            dom: 'Bfrtip',
+            ordering: false,
+            select: {
+                style : 'os',
+                items: 'cell'
+            },
+            buttons: [
+                'copy', 'csv',  'print'
+            ]
+        });
+
+      $.post( "/getAllRoomStatus", function( data ) {
+        //$( ".result" ).html( data );
+        var 
+        roomStatus = data
+        console.log(data)
+        // tableHead();
+        var currentDate = "";
+        var date = new Date();
+        currentDate = (date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + (date.getDate()));
+
+        // for(var i = 0; i< data.length; i++){
+
+        // }
+        data.forEach(function(room){
+            // var appendRow = '<tr>'
+            room.data[0].occupys.forEach(function(element){
+                console.log(element.date);
+                console.log(currentDate);
+                if(element.date == currentDate){
+                    // append
+                    // for(var i = 0; i < element.oStatus.length; i++){
+                    //     appendRow = appendRow + '<td>' + element.oStatus[i] + '</td>';
+                    // }
+                    // console.log(typeof(element.oStatus[0]));
+                    element.oStatus = "111111111111111";
+                    table.row.add( {
+
+                        sevenToEight : "hello",
+                        eightToNine : "world",
+                        // "9-10" : element.oStatus[2],
+                        // "10-11" : element.oStatus[3],
+                        // "11-12" : element.oStatus[4],
+                        // "12-13" : element.oStatus[5],
+                        // "13-14" : element.oStatus[6],
+                        // "14-15" : element.oStatus[7],
+                        // "15-16" : element.oStatus[8],
+                        // "16-17" : element.oStatus[9],
+                        // "17-18" : element.oStatus[10],
+                        // "18-19" : element.oStatus[11],
+                        // "19-20" : element.oStatus[12],
+                        // "20-21" : element.oStatus[13],
+                        // "21-22" : element.oStatus[14],
+                    }).draw();
+
+                }
+            })  
+            // appendRow = appendRow + '/tr>';
+
+            // $("#tableBody").append(appendRow);
+
+        })
+        function tableHead(){
+            var appendHead = '<tr>'
+            for (var i = 7; i < 22; i++) {
+                appendHead = appendHead + '<th>' + i + '-' + (i + 1) + '</th>'
+                
+            }
+            appendHead = appendHead + '</tr>';
+            $("#tableHead").append(appendHead);
+
+        }
+      });
+
+    }());
+    
 });

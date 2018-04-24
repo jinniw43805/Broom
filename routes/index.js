@@ -5,6 +5,7 @@ var router = express.Router();
 var util = require('util');
 var userApi = require('../src/userApi');
 var courseApi = require('../src/courseApi');
+var roomApi = require('../src/roomApi');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index.html');
@@ -17,7 +18,20 @@ router.get('/signup', function(req, res, next) {
   res.render('signup.html');
 });
 router.get('/dashboard2', function(req, res, next) {
+  //var data;
+  //var date = new Date();
+  //data.date = (date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + (date.getDate() + i));
+  //data.provider = "UTD"
+
+  //var getRoomStatusApi = roomApi.getAllRoomStatus(data);
+  //promise.when(getRoomStatusApi).done(function(){
+    //var fetchRoomStatus = arguments[0];
+  //})
+  //res.render('dashboard2', {
+    //roomStatus : fetchRoomStatus 
+  //});
   res.render('dashboard2');
+
 });
 router.get('/addroom', function(req, res, next) {
   res.render('addroom');
@@ -140,13 +154,22 @@ router.post('/completeData', function(req, res, next) {
   });
 });
 
-router.post('/addNewCourse',function(req, res, next) {
-	// console.log(req.body);
-	var AddCourseApi = courseApi.setNewCourse(req.body);
-		promise.when(AddCourseApi).done(function(){
-		res.redirect('/success');
+router.post('/addNewRoomInfo',function(req, res, next) {
+  console.log("req.body:"+req.body.provider)
+	var addRoomInfoApi = roomApi.setNewRoomInfo(req.body);
+		promise.when(addRoomInfoApi).done(function(){
+    console.log("Insert Success");
+		res.send('push ok');
 	});
 });
+
+//router.post('/addNewCourse',function(req, res, next) {
+	//// console.log(req.body);
+	//var AddCourseApi = courseApi.setNewCourse(req.body);
+		//promise.when(AddCourseApi).done(function(){
+		//res.redirect('/success');
+	//});
+//});
 
 
 router.post('/addNewNote',function(req, res, next) {
@@ -178,6 +201,13 @@ router.post('/isExistCourse', function(req, res, next) {
 	// console.log(req.body);
 	var isExistApi = courseApi.isExistCourse(req.body);
 		promise.when(isExistApi).done(function(){
+			console.log("respond data :"+ JSON.stringify(arguments[0], null, 2));
+			res.json(arguments[0]);
+		});
+});
+router.post('/getAllRoomStatus', function(req, res, next) {
+	var getAllRoomStatus = roomApi.getAllRoomStatus(req.body);
+		promise.when(getAllRoomStatus).done(function(){
 			console.log("respond data :"+ JSON.stringify(arguments[0], null, 2));
 			res.json(arguments[0]);
 		});
