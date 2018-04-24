@@ -132,12 +132,18 @@ $(function() {
 
         //console.log("helloworld")
 });
-var roomStatus
+var roomStatus = [];
+var submitInfo = [];
+var recordBitArray = [];
+var currentDate = "";
+
 $(document).ready(function() {
 
     //Custom javascripts
     //
-
+    var limitCount = 4;
+    var count = 0;
+    var rowIdCollector = [];
     var renderRoomStatus = (function() {
         var table = $('#example23').DataTable({
             dom: 'Bfrtip',
@@ -153,11 +159,9 @@ $(document).ready(function() {
 
       $.post( "/getAllRoomStatus", function( data ) {
         //$( ".result" ).html( data );
-        var 
         roomStatus = data
         console.log(data)
-        // tableHead();
-        var currentDate = "";
+        tableHead();
         var date = new Date();
         currentDate = (date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + (date.getDate()));
 
@@ -165,45 +169,136 @@ $(document).ready(function() {
 
         // }
         data.forEach(function(room){
-            // var appendRow = '<tr>'
+            var appendRow = '<tr><td class="notClickAble" id="'+room.data[0]._id+'">'+room.data[0].roomLocation+" "+room.data[0].roomNumber+'</td>'
+            rowIdCollector.push(room.data[0].info);
             room.data[0].occupys.forEach(function(element){
                 console.log(element.date);
                 console.log(currentDate);
                 if(element.date == currentDate){
                     // append
-                    // for(var i = 0; i < element.oStatus.length; i++){
-                    //     appendRow = appendRow + '<td>' + element.oStatus[i] + '</td>';
-                    // }
-                    // console.log(typeof(element.oStatus[0]));
-                    element.oStatus = "111111111111111";
-                    table.row.add( {
+                    var subrecordBitArray = {
+                        'date': element.data,
+                        'oStatus' : element.oStatus,
+                        'roomId' : element._id,
+                        'motherRoomId' : room.data[0]._id
+                    }
 
-                        sevenToEight : "hello",
-                        eightToNine : "world",
-                        // "9-10" : element.oStatus[2],
-                        // "10-11" : element.oStatus[3],
-                        // "11-12" : element.oStatus[4],
-                        // "12-13" : element.oStatus[5],
-                        // "13-14" : element.oStatus[6],
-                        // "14-15" : element.oStatus[7],
-                        // "15-16" : element.oStatus[8],
-                        // "16-17" : element.oStatus[9],
-                        // "17-18" : element.oStatus[10],
-                        // "18-19" : element.oStatus[11],
-                        // "19-20" : element.oStatus[12],
-                        // "20-21" : element.oStatus[13],
-                        // "21-22" : element.oStatus[14],
-                    }).draw();
+                    recordBitArray.push(subrecordBitArray);
+
+                    for(var i = 0; i < element.oStatus.length; i++){
+                        appendRow = appendRow + '<td motherRoomId="'+room.data[0]._id+'" '+'roomId="' + element._id + '" hourBit="'+i+'">' + element.oStatus[i] + '</td>';
+                    }
+                    console.log(typeof(element.oStatus[0]));
+                    // element.oStatus = "111111111111111";
+                    // table.row.add( {
+
+                    //     sevenToEight : "hello",
+                    //     eightToNine : "world",
+                    //     // "9-10" : element.oStatus[2],
+                    //     // "10-11" : element.oStatus[3],
+                    //     // "11-12" : element.oStatus[4],
+                    //     // "12-13" : element.oStatus[5],
+                    //     // "13-14" : element.oStatus[6],
+                    //     // "14-15" : element.oStatus[7],
+                    //     // "15-16" : element.oStatus[8],
+                    //     // "16-17" : element.oStatus[9],
+                    //     // "17-18" : element.oStatus[10],
+                    //     // "18-19" : element.oStatus[11],
+                    //     // "19-20" : element.oStatus[12],
+                    //     // "20-21" : element.oStatus[13],
+                    //     // "21-22" : element.oStatus[14],
+                    // }).draw();
 
                 }
             })  
-            // appendRow = appendRow + '/tr>';
+            appendRow = appendRow + '/tr>';
 
-            // $("#tableBody").append(appendRow);
+            $("#tableBody").append(appendRow);
 
         })
+        var isMouseDown = false,
+        isHighlighted;
+        $("#myTable td")
+        .mousedown(function () {
+            if($(this).hasClass("notClickAble")){
+                console.log("not Clickable")
+                return false;
+            }
+            else{
+                isHighlighted = $(this).hasClass("highlighted");
+                if(isHighlighted){
+                    console.log("cancel this one")
+                    isMouseDown = true;
+                    $(this).toggleClass("highlighted");
+                    count -= 1;
+
+                    for(var i = 0; i<recordBitArray.length; i++){
+                        if(recordBitArray[i].motherRoomId == $(this).attr('motherroomid')){
+                            recordBitArray[i].oStatus = recordBitArray[i].oStatus.replaceAt(parseInt($(this).attr('hourBit')),"0")
+                        }
+                    }
+                    // remove(submitInfo, {
+                    //     'roomId' : $(this).attr('roomId'),
+                    //     'hourBit' : $(this).attr('hourBit')   
+                    // })
+                    for(var i = 0; i < submitInfo.length; i++){
+                        if(submitInfo[i].roomId == $(this).attr('roomId') && submitInfo[i].hourBit == $(this).attr('hourBit')){
+                            console.log("find remove index");
+                            submitInfo.splice(i, 1);
+
+                        }
+                    }
+
+                }else{
+                    console.log("try to add");
+                    if(count == limitCount){
+                        return false;
+                    }else{
+                        // Add success
+                    isMouseDown = true;
+                    $(this).toggleClass("highlighted");
+                    count += 1;
+
+                    addInfo = {
+                        'roomId' : $(this).attr('motherroomid'),
+                        'hourBit' : $(this).attr('hourBit'),
+                        'motherRoomId' : $(this).attr('motherroomid')
+                    }
+
+                    submitInfo.push(addInfo);
+
+                    console.log($(this).attr('motherroomid'))
+                    for(var i = 0; i<recordBitArray.length; i++){
+                        if(recordBitArray[i].motherRoomId == $(this).attr('motherroomid')){
+                            recordBitArray[i].oStatus = recordBitArray[i].oStatus.replaceAt(parseInt($(this).attr('hourBit')),"1")
+                        }
+                    }
+                    
+                    }
+
+                    // if(recordBitArray.length == 0){
+                    //     newObj = {
+
+                    //     }
+                    // }
+                
+                }
+                return false;
+            }
+        })
+        .mouseover(function () {
+          if (isMouseDown) {
+            $(this).toggleClass("highlighted", isHighlighted);
+          }
+        });
+
+        $(document)
+        .mouseup(function () {
+          isMouseDown = false;
+        });
+
         function tableHead(){
-            var appendHead = '<tr>'
+            var appendHead = '<tr><th>Name</th>'
             for (var i = 7; i < 22; i++) {
                 appendHead = appendHead + '<th>' + i + '-' + (i + 1) + '</th>'
                 
@@ -212,8 +307,128 @@ $(document).ready(function() {
             $("#tableHead").append(appendHead);
 
         }
+        function insertRoomDetail(rowIdCollector){
+            rowIdCollector.forEach(function(element){
+
+            })
+        }
+
+        function remove(array, element) {
+            const index = array.indexOf(element);
+            
+            if (index !== -1) {
+                array.splice(index, 1);
+            }
+        }
       });
 
     }());
     
+
+
+
+
+    $("#submitBtn").click(function(err){
+        console.log("send info to db");
+        // obj = {
+        //     ""
+        // }
+        console.log("getCookie")
+        // console.log(getCookie('userName'))
+        // userName = getCookie('userName')
+        data = {
+            "username" : username,
+            "submitInfo" : submitInfo
+        }
+
+        console.log(data)
+
+        //  $.post("/addUserRecord",
+        //     data: JSON.stringify(data),
+        //     // , contentType: 'application/json'
+        //     // , dataType: 'json',
+
+        //     function(data, status){
+        //         // alert("Data: " + data + "\nStatus: " + status);
+        //         console.log("return:"+data);
+        // });
+    // $.post("demo_test_post.asp",
+    // {
+    //     name: "Donald Duck",
+    //     city: "Duckburg"
+    // },
+    // function(data, status){
+    //     alert("Data: " + data + "\nStatus: " + status);
+    // });
+// Calculate changed bit total
+// based on roomstatus
+// 
+        roomStatus.forEach(function(element){
+            var roomOstatus = "";
+            element.data[0].occupys.forEach(function(time){
+                if(time.data == currentDate){
+                    console.log(currentDate)
+                    roomOstatus = time.oStatus  
+                }
+            })
+
+            submitInfo.forEach(function(element2){
+                if(element2.motherRoomId == element.data[0]._id){
+                    roomOstatus[element2.hourBit] = "1"
+                }
+            })
+
+            console.log(roomOstatus);
+        })
+
+
+// see who needs the result
+        submitInfo.forEach(function(element){
+            recordBitArray.forEach(function(element2){
+                if(element2.motherRoomId == element.motherRoomId){
+                    element.totalBit = element2.oStatus
+                }
+            })
+        })
+
+
+        submitInfo.forEach(function(element){
+
+            // findroomID
+
+            console.log(element.totalBit);
+            $.post("/addUserRecord",
+            {
+                username: username,
+                roomId: element.roomId,
+                hourBit: element.hourBit,
+                date: currentDate,
+                totalBit : element.totalBit
+
+            },
+            function(data, status){
+                alert("Data: " + data + "\nStatus: " + status);
+            });
+        })
+    });
+
 });
+
+function getCookie(cname) {
+var name = cname + "=";
+var ca = document.cookie.split(';');
+for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+    }
+}
+return "";
+}
+
+
+String.prototype.replaceAt=function(index, char) {return this.substr(0, index) + char + this.substr(index+char.length);}
+
