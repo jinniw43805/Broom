@@ -13,7 +13,9 @@
 table td.highlighted {
   background-color:#999;
 }
-
+table td.cellChosed {
+  background-color:orangered;
+}
 /*
     Template: Ela Admin
     Author: Zebra Theme

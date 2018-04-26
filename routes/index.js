@@ -36,19 +36,24 @@ router.get('/admin', function(req, res, next) {
 
 
 router.get('/auth/localok', function(req, res, next) {
-  //if(req.cookies.userName){
-    //console.log("find cookie")   
-  //}else{
+  if(req.cookies.userName){
+    console.log("find cookie")
+    res.cookie('userName', req.cookies.userName, { maxAge: 900000, httpOnly: true });
+    res.render('dashboard2',{
+      username : req.cookies.userName
+    });
+    
+  }
+  if(!typeof req.user.localUserName =="undefined"){
     res.cookie('userName', req.user.localUserName, { maxAge: 900000, httpOnly: true });
-  //}
-    console.log("username")
-
-    console.log(req.user.localUserName)
-
     res.render('dashboard2',{
       username : req.user.localUserName
     });
-	// console.log("user information send to front:"+req.user);
+  }else{
+    res.render('dashboard2',{
+      username : req.user.localUserName
+    });
+  }
 });
 router.get('/auth/localfail', function(req, res, next) {
   res.send("fail");
@@ -147,7 +152,7 @@ router.post('/addNewRoomInfo',function(req, res, next) {
   console.log("req.body:"+req.body.provider)
 	var addRoomInfoApi = roomApi.setNewRoomInfo(req.body);
 		promise.when(addRoomInfoApi).done(function(){
-    console.log("Insert Success");
+    //console.log("Insert Success");
 		res.send('push ok');
 	});
 });

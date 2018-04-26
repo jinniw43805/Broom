@@ -17,6 +17,8 @@ var forwardDays = 7;
 
 
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+
 var	url = "mongodb://tony:tony123@ds049104.mongolab.com:49104/coconut";
 var dbo
 MongoClient.connect(url, function(err, db) {
@@ -27,7 +29,7 @@ MongoClient.connect(url, function(err, db) {
 
 
 function getAllRoomStatus(data, deferred){
-  roomStatus.find({'data.occupys.date' : "2018-4-24"}
+  roomStatus.find({'data.occupys.date' : "2018-4-26"}
   , function(err, result){
     if(err){
       console.log(err)
@@ -90,44 +92,34 @@ function setNewRoomStatus(roomID, roomDetail, provider){
 
 
 }
-function updateRoomStatus(roomId, bit){
-  console.log(roomId)
-  console.log(bit)
 
-  dbo.collection('roomstatuses').update({"data.occupys._id":'ObjectId('+roomId+')'},{$set:{"data.$.occupys.0.oStatus":bit}},function(err,result){
+function updateRoomName(roomId, roomNumber, roomBuilding){
+  //console.log(roomId)
+  //console.log(bit)
+//ObjectId("5adf37f01e0a2304acd55aca")
+  dbo.collection('roomstatuses').update({"data.occupys._id":ObjectId(roomId)},{$set:{"data.$.occupys.0.oStatus":bit}},function(err,result){
+  //dbo.collection('roomstatuses').update({"data.occupys._id":'ObjectId("'+roomId+'")'},{$set:{"data.$.occupys.0.oStatus":bit}},function(err,result){
     if(err){
     console.log(err)
     }else{
     console.log("ok");
     }
-  }) 
-  //db.getCollection('roomstatuses').update({"data.occupys._id":ObjectId("5adeaa7d088da86336577306")},{$set:{"data.$.occupys.0.oStatus":"111"}}) 
-  //roomStatus.aggregate([
-    //{$unwind : 'data.occupys'},
-    //{$match : {'data.occupys._id':roomId}},
-    //],function(err,result){
-      //if(err){
-      //console.log(err)
-      //}else{
-        //console.log("update Result")
-        //console.log(result);
-      //}
-    //})
-  //roomStatus.findOneAndUpdate({
-  //'data.occupys._id' : roomId
-  //},{
-    //"$set" : {
-      //"data.occupys.$": {}
-    //}
-  //},function(err,result){
-    //if(err){
-    //console.log(err)
-    //}else{
-      //console.log("update Result")
-      //console.log(result)
-    //}
-    
-  //})
+  })
+}
+
+function updateRoomStatus(roomId, bit){
+  //console.log(roomId)
+  console.log(bit)
+//ObjectId("5adf37f01e0a2304acd55aca")
+  dbo.collection('roomstatuses').update({"data.occupys._id":ObjectId(roomId)},{$set:{"data.$.occupys.0.oStatus":bit}},function(err,result){
+  //dbo.collection('roomstatuses').update({"data.occupys._id":'ObjectId("'+roomId+'")'},{$set:{"data.$.occupys.0.oStatus":bit}},function(err,result){
+    if(err){
+    console.log(err)
+    }else{
+    console.log(result)
+    console.log("ok");
+    }
+  })
 }
 function setNewRoomInfo(data, deferred){
     var res={};
@@ -163,7 +155,8 @@ function setNewRoomInfo(data, deferred){
       if(err){
         console.log(err);
       }else{
-        setNewRoomStatus(result.id, roomDetail, provider);
+        console.log(result)
+        setNewRoomStatus(result._id, roomDetail, provider);
         deferred.resolve(res);
       }
     })
