@@ -352,7 +352,7 @@
                                         <h3 class="media-heading" id="localUserName1"></h3>
                                         <span><strong>Skills: </strong></span>
                                         <span class="label label-warning" id="localUserName"></span>
-                                        <span class="label label-info" id="uni_department"></span>
+                                        <!--<span class="label label-info" id="uni_department"></span>-->
                                         <span class="label label-info" id="university"></span>
         
                                         <center>
@@ -371,7 +371,7 @@
     </div>
     <div>
         <h3 id="localUserName5"></h3>
-        <h3 id="uni_department1"></h3>
+        <!--<h3 id="uni_department1"></h3>-->
         <h3 id="university1"></h3>
         <!--<span class="label label-warning" id="localUserName"></span>
         <span class="label label-info" id="uni_department"></span>
@@ -379,7 +379,7 @@
     </div>
 </div>
     <div class="col-lg-8">
-        <table style="width:100%" id="table">
+        <!-- <table style="width:100%" id="table">
             <br>
         <tr>
             <th>#</th>
@@ -387,7 +387,7 @@
             <th>Date</th>
             <th>Time</th>
         </tr>
-    </table>
+    </table> -->
 
 
 
@@ -402,7 +402,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-hover ">
+                                    <table class="table table-hover" id="userhistory">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -413,7 +413,7 @@
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <!-- <tbody>
                                             <tr>
                                                 <th scope="row">1</th>
                                                 <td>ECS</td>
@@ -438,7 +438,7 @@
                                                 <td>January 25</td>
                                                 <td><span class="badge badge-success">OK</span></td>
                                             </tr>
-                                        </tbody>
+                                        </tbody> -->
                                     </table>
                                 </div>
                             </div>
@@ -476,20 +476,41 @@
                 console.log(JSON.stringify(data));
                 //alert(userdata);                
                 //$("#table").append(JSON.stringify(data));
-                var _id             = data[0]._id;
-                var localUserName   = data[0].localUserName;
-                var localPassword   = data[0].localPassword;
-                var oauthID         = data[0].oauthID;
-                var isRegCompletely = data[0].isRegCompletely;
-                var created         = data[0].created;
-                var __v             = data[0].__v;
-                var uni_department  = data[0].uni_department;
-                var university      = data[0].university;
-                var joinCourses     = data[0].joinCourses;
-                var ownCourses      = data[0].ownCourses;
+                var number          = null;
+                var building        = userdata[0].roomInfo[0].data[0].roomLocation;
+                var roomnumber      = userdata[0].roomInfo[0].data[0].roomNumber;
+                var hour            = userdata[0].recordModels.hourBit + 7;
+                var date            = null;
+                var status          = "ok";
+
+                var localUserName   = userdata[0].localUserName;
+                var uni_department  = null;
+                var university  = userdata[0].roomInfo[0].provider;
+
                 
-                var table = '<tr><td>'+_id+'</td><td>'+localUserName+'</td><td>'+localPassword+'</td><td>'+oauthID+'</td><td>'+isRegCompletely+'</td><td>'+created+'</td><td>'+__v+'</td>td>'+uni_department+'</td>td>'+university+'</td><td>'+joinCourses+'</td><td>'+ownCourses+'</td></tr>';
-                //$("table").append(table);
+                //var table = '<tr><td>'+number+'</td><td>'+building+'</td><td>'+roomnumber+'</td><td>'+hour+":00"+'</td><td>'+date+'</td><td>'+status+'</td></tr>';
+                var table = "";
+                //$("#userhistory").append(table);
+                
+                for (i = 0; i < userdata.length ; i++) {
+                    // var number          = i;
+                    // var building        = userdata[i].roomInfo[0].data[0].roomLocation;
+                    // var roomnumber      = userdata[i].roomInfo[0].data[0].roomNumber;
+                     var hour            = userdata[i].recordModels.hourBit + 7;
+                    // var date            = null;
+                    // var status          = "ok";
+                    // $("#userhistory").append(table);
+                    table+="<tr><td>"+i+"</td>";
+                    table+="<td>"+userdata[i].roomInfo[0].data[0].roomLocation+"</td>";
+                    table+="<td>"+userdata[i].roomInfo[0].data[0].roomNumber+"</td>";
+                    table+="<td>"+hour+":00"+"</td>";
+                    table+="<td>"+date+"</td>";
+                    table+="<td>"+status+"</td>";
+
+                }
+                $("#userhistory").append(table);
+
+
                 $("#localUserName").append(localUserName);
                 $("#localUserName1").append(localUserName);
                 $("#localUserName2").append(localUserName);
@@ -499,7 +520,16 @@
                 $("#uni_department").append(uni_department);
                 $("#uni_department1").append(uni_department);
                 $("#university").append(university);
-                $("#university1").append(university);               
+                $("#university1").append(university);
+
+
+
+                data.forEach(function(element){
+                    console.log(element)
+                })
+
+
+
             },
             error: function(error) {
                 console.log("some error in fetching the notifications");
@@ -509,58 +539,58 @@
     });
 
     var userdata1 ;
-    $( document ).ready(function() {
-        $.ajax({
-            type: 'POST',
-            // data: JSON.stringify(data),
-            data: {
-                userName: "admin2"
-            },
-            // contentType: "application/javascript",
-            contentType: "application/x-www-form-urlencoded",
-            dataType:'json',
-            url: 'http://localhost:3000/getUserinfo',                      
-            success: function(data) {
-                userdata1 = data;
-                console.log('success');
-                console.log(JSON.stringify(data));
-                //alert(userdata);                
-                //$("#table").append(JSON.stringify(data));
-                var _id             = data[0]._id;
-                var localUserName   = data[0].localUserName;
-                var localPassword   = data[0].localPassword;
-                var oauthID         = data[0].oauthID;
-                var isRegCompletely = data[0].isRegCompletely;
-                var created         = data[0].created;
-                var __v             = data[0].__v;
-                var uni_department  = data[0].uni_department;
-                var university      = data[0].university;
-                var joinCourses     = data[0].joinCourses;
-                var ownCourses      = data[0].ownCourses;
+    // $( document ).ready(function() {
+    //     $.ajax({
+    //         type: 'POST',
+    //         // data: JSON.stringify(data),
+    //         data: {
+    //             userName: "admin2"
+    //         },
+    //         // contentType: "application/javascript",
+    //         contentType: "application/x-www-form-urlencoded",
+    //         dataType:'json',
+    //         url: 'http://localhost:3000/getUserinfo',                      
+    //         success: function(data) {
+    //             userdata1 = data;
+    //             console.log('success');
+    //             console.log(JSON.stringify(data));
+    //             //alert(userdata);                
+    //             //$("#table").append(JSON.stringify(data));
+    //             var _id             = data[0]._id;
+    //             var localUserName   = data[0].localUserName;
+    //             var localPassword   = data[0].localPassword;
+    //             var oauthID         = data[0].oauthID;
+    //             var isRegCompletely = data[0].isRegCompletely;
+    //             var created         = data[0].created;
+    //             var __v             = data[0].__v;
+    //             var uni_department  = data[0].uni_department;
+    //             var university      = data[0].university;
+    //             var joinCourses     = data[0].joinCourses;
+    //             var ownCourses      = data[0].ownCourses;
 
-                var number         = 1;
-                var roomID         = data[0].recorModels[0].roomID;
+    //             var number         = 1;
+    //             var roomID         = data[0].recorModels[0].roomID;
 
                 
-                var table = '<tr><td>'+number+'</td><td>'+roomID+'</td></tr>';
-                $("table").append(table);
-                $("#localUserName").append(localUserName);
-                $("#localUserName1").append(localUserName);
-                $("#localUserName2").append(localUserName);
-                $("#localUserName3").append(localUserName);
-                $("#localUserName4").append(localUserName);
-                $("#localUserName5").append(localUserName);
-                $("#uni_department").append(uni_department);
-                $("#uni_department1").append(uni_department);
-                $("#university").append(university);
-                $("#university1").append(university);               
-            },
-            error: function(error) {
-                console.log("some error in fetching the notifications");
-            }
+    //             var table = '<tr><td>'+number+'</td><td>'+roomID+'</td></tr>';
+    //             $("table").append(table);
+    //             $("#localUserName").append(localUserName);
+    //             $("#localUserName1").append(localUserName);
+    //             $("#localUserName2").append(localUserName);
+    //             $("#localUserName3").append(localUserName);
+    //             $("#localUserName4").append(localUserName);
+    //             $("#localUserName5").append(localUserName);
+    //             $("#uni_department").append(uni_department);
+    //             $("#uni_department1").append(uni_department);
+    //             $("#university").append(university);
+    //             $("#university1").append(university);               
+    //         },
+    //         error: function(error) {
+    //             console.log("some error in fetching the notifications");
+    //         }
 
-        });
-    });
+    //     });
+    // });
 
                 
 </script>
