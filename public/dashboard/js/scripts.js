@@ -323,7 +323,8 @@ $(document).ready(function() {
             providerList.forEach(function(element){
                 var obj = {
                     "provider" : element,
-                    "building" : []
+                    "building" : [],
+                    "number" : []
                 }
                 buildIngList.push(obj)
             })
@@ -331,11 +332,13 @@ $(document).ready(function() {
             data.forEach(function(element){
                 buildIngList.forEach(function(element2){
                     if(element.provider == element2.provider){
-                        element2.building.push(element.data[0].roomLocation)
+                        element2.building.push(element.data[0].roomNumber)
                     }
                 })
                 
             })
+
+
 
         }
       });
@@ -399,11 +402,11 @@ $(document).ready(function() {
             $.post("/addUserRecord",
             {
                 username: username,
-                roomId: element.roomId,
+                motherRoomId: element.motherRoomId,
                 hourBit: element.hourBit,
                 date: currentDate,
-                totalBit : element.totalBit
-
+                totalBit : element.totalBit,
+                occupyId : element.roomId
             },
             function(data, status){
                 // alert("Data: " + data + "\nStatus: " + status);

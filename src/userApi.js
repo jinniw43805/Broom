@@ -6,77 +6,42 @@ var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 var User = require('../models/userInfo.js');
 var roomApi = require('./roomApi.js');
-function setUserCompleteInfo(data, userID, deferred){
-    var res = {};
-    var university = data.university;
-    var uni_department = data.uni_department;
-    //checking data whether right or not
 
-    //success , storing into db
-    console.log("data:"+university+"userID:"+userID);
-    console.log("catch userID: "+ userID)
-    User.findOne({ localUserName: userID}, function(err, user) {
-        user.isRegCompletely = true;
-        user.university = university;
-        user.uni_department = uni_department;
-        user.save(function(err) {
-            if(err){
-                console.log(err);
-            }else{
-                console.log("set sucess!!");
-            }
-            deferred.resolve(res);
 
-        });
-    });
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
-}
+var	url = "mongodb://tony:tony123@ds049104.mongolab.com:49104/coconut";
+var dbo
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  dbo = db.db("");
+});
 
-function getIsRegCompletely(userID,deferred){
 
-}
-
-function setIsRegCompletely(boolean,userID,deferred){
-
-}
-function addNewCourse(userID,courseName,courseID,deferred){
-    var res={};
-    User.findOne({oauthID:userID}, function(err, user) {
-        console.log("try to storing new course to:"+userID);
-        console.log("courseName:"+courseName+"courseID"+courseID);
-        var CourseData = {
-            courseName: courseName,
-            courseID: courseID
-        }
-        user.ownCourses.push(CourseData);
-        user.joinCourses.push(CourseData);
-        user.save(function(err) {
-            if(err){
-                console.log(err);
-            }else{
-                console.log("set sucess!!");
-                res = {
-                    type : "result",
-                    data : "S01"
-                }
-            }
-            deferred.resolve(res);
-        });
-    });
-
-}
 
 function getUserInfo(data, deferred){
-  User.find({'localUserName' : data.userName}
-  , function(err, result){
-    if(err){
-      console.log(err)
-    }else{
-      if(result){
-        deferred.resolve(result)
-      }
-    }
-  })
+
+  dbo.collection('users').aggregate([
+    {$match: {localUserName:'admin'}},
+    {$unwind:"$recordModels"},
+    {$lookup: {
+        from: 'roomstatuses',
+        localField: 'recordModels.roomID',
+        foreignField: 'data._id',
+        as: 'roomInfo'
+        }},
+    
+    {$project:{
+        "roomInfo":"$roomInfo",
+        "localUserName" : 1,
+        "recordModels":2
+        }}
+  ]).toArray(function(err, docs){
+    console.log(docs)
+    deferred.resolve(docs)
+  })  
+
 }
 function setNewUserRecord(data, deferred){
   //console.log(JSON.stringify(data))
@@ -94,8 +59,9 @@ console.log(data.username)
   User.findOneAndUpdate({localUserName : data.username},{
     $push : {
       recordModels : {
-        roomID : data.roomId,
-        hourBit : data.hourBit
+        roomID : data.motherRoomId,
+        hourBit : data.hourBit,
+        date: data.currentDate
       }
     }
   },
@@ -105,7 +71,7 @@ console.log(data.username)
       }else{
         if(result){
           console.log("append to user db success")
-          roomApi.updateRoomStatus(data.roomId, data.totalBit)
+          roomApi.updateRoomStatus(data.occupyId, data.totalBit)
           
           deferred.resolve(result);
         }
@@ -117,26 +83,6 @@ module.exports = {
       var deferred = new promise.Deferred();
       getUserInfo(data, deferred);
       return deferred;
-    },
-    setUserCompleteInfo: function(data,userID){
-        var deferred = new promise.Deferred();
-        setUserCompleteInfo(data,userID,deferred);
-        return deferred;
-    },
-    getIsRegCompletely: function(userID){
-        var deferred = new promise.Deferred();
-
-        return deferred;
-    },
-    setIsRegCompletely: function(boolean,userID){
-        var deferred = new promise.Deferred();
-
-        return deferred;
-    },
-    addNewCourse : function(userID,courseName,courseID,deferred){
-        // var deferred = new promise.Deferred();
-        addNewCourse(userID,courseName,courseID,deferred);
-        // return deferred;
     },
     setNewUserRecord : function(data){
       var deferred = new promise.Deferred();

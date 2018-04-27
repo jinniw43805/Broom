@@ -33,6 +33,10 @@ router.get('/addroom', function(req, res, next) {
 router.get('/admin', function(req, res, next) {
   res.render('admin');
 });
+router.get('/adminEdit', function(req, res, next) {
+  res.render('admin2');
+});
+
 
 
 router.get('/auth/localok', function(req, res, next) {
@@ -138,16 +142,6 @@ router.get('/logout', function(req, res) {
 
 
 
-router.post('/completeData', function(req, res, next) {
-	console.log("try to completeData");
-	//console.log(req.body);
-  console.log(req.cookies);
-  var CompleteDataApi = userApi.setUserCompleteInfo(req.body,req.cookies.userName);
-    promise.when(CompleteDataApi).done(function(){
-    res.redirect('/auth/localok');
-  });
-});
-
 router.post('/addNewRoomInfo',function(req, res, next) {
   console.log("req.body:"+req.body.provider)
 	var addRoomInfoApi = roomApi.setNewRoomInfo(req.body);
@@ -160,52 +154,17 @@ router.post('/addUserRecord',function(req, res, next) {
   console.log("req.body:"+req.body.provider)
 	var addUserRecord = userApi.setNewUserRecord(req.body);
 		promise.when(addUserRecord).done(function(){
-    console.log("Insert Success");
-		res.send('push ok');
+    //console.log("Insert Success");
+    res.redirect('/auth/localok');
 	});
 });
-
-//router.post('/addNewCourse',function(req, res, next) {
-	//// console.log(req.body);
-	//var AddCourseApi = courseApi.setNewCourse(req.body);
-		//promise.when(AddCourseApi).done(function(){
-		//res.redirect('/success');
-	//});
-//});
-
-
-router.post('/addNewNote',function(req, res, next) {
-	console.log(req.body);
-	var AddNoteApi = courseApi.setNewNote(req.body);
-		promise.when(AddNoteApi).done(function(){
-			// console.log("this time:"+req.user.ownCourses);
-			res.redirect('/success');
-		});
-});
-// router.post('/isUserHadCourse', function(req, res, next) {
-// 	console.log("ajax data is :"+req.body);
-// 	// var UserHadCourseApi = userApi.getHasCourse(req.body);
-// });
-router.post('/addJoinCourse', function(req, res, next) {
-	console.log(req.body);
-	var JoinCourseApi = courseApi.setUserJoinCourse(req.body);
-		promise.when(JoinCourseApi).done(function(){
-			if(arguments[0].type==="error"){
-				//error
-				res.send("Can't find the course !");
-			}else{
-				res.redirect('/success');			
-			}
-		})
-});
-
-router.post('/isExistCourse', function(req, res, next) {
-	// console.log(req.body);
-	var isExistApi = courseApi.isExistCourse(req.body);
-		promise.when(isExistApi).done(function(){
-			console.log("respond data :"+ JSON.stringify(arguments[0], null, 2));
-			res.json(arguments[0]);
-		});
+router.post('/updateRoomName',function(req, res, next) {
+  //console.log("req.body:"+req.body.provider)
+	var updateRoomName = roomApi.updateRoomName(req.body);
+		promise.when(updateRoomName).done(function(){
+    //console.log("Insert Success");
+    res.redirect('/auth/localok');
+	});
 });
 router.post('/getAllRoomStatus', function(req, res, next) {
 	var getAllRoomStatus = roomApi.getAllRoomStatus(req.body);

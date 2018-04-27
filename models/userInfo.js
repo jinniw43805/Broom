@@ -21,8 +21,12 @@ var CoursesModal = new Schema({
     NoteData: [NotesModal]
 });
 var recordModel = new Schema({
-  roomID : String,
-  hourBit : Number
+  roomID : {
+    type : Schema.Types.ObjectId,
+    ref : 'roomstatus'
+  },
+  hourBit : Number,
+  data: String
 });
 
 module.exports = mongoose.model('User', new Schema({

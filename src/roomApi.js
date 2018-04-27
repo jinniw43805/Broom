@@ -14,6 +14,8 @@ var forwardDays = 7;
 
 
 
+var dateobj = new Date();
+var currentDate = (dateobj.getFullYear() + '-' + (dateobj.getMonth() + 1) + '-' + (dateobj.getDate()));
 
 
 var MongoClient = require('mongodb').MongoClient;
@@ -29,7 +31,7 @@ MongoClient.connect(url, function(err, db) {
 
 
 function getAllRoomStatus(data, deferred){
-  roomStatus.find({'data.occupys.date' : "2018-4-26"}
+  roomStatus.find({'data.occupys.date' : currentDate}
   , function(err, result){
     if(err){
       console.log(err)
@@ -93,8 +95,29 @@ function setNewRoomStatus(roomID, roomDetail, provider){
 
 }
 
-function updateRoomName(roomId, roomNumber, roomBuilding){
+function updateRoomName(data, deferred){
+console.log("data")
+console.log(data.provider)
+console.log(data.rLocation)
+console.log(data.roomNumber)
+console.log(data._id)
   //console.log(roomId)
+  //console.log(bit)
+  //update({"_id":ObjectId("5ae2ccc9476f219fc2df56ec")},{$set:{"data.0.roomLocation":"test","data.0.roomNumber":789}})
+  dbo.collection('roomstatuses').update({"_id":ObjectId(data._id)},{$set:{"data.0.roomLocation":data.rLocation,"data.0.roomNumber":data.roomNumber}},function(err,result){
+  //dbo.collection('roomstatuses').update({"data.occupys._id":'ObjectId("'+roomId+'")'},{$set:{"data.$.occupys.0.oStatus":bit}},function(err,result){
+    if(err){
+    console.log(err)
+    }else{
+    console.log("ok");
+    deferred.resolve(result);
+    }
+  })
+}
+
+function updateRoomStatus(roomId, bit){
+  
+  console.log(roomId)
   //console.log(bit)
 //ObjectId("5adf37f01e0a2304acd55aca")
   dbo.collection('roomstatuses').update({"data.occupys._id":ObjectId(roomId)},{$set:{"data.$.occupys.0.oStatus":bit}},function(err,result){
@@ -102,21 +125,7 @@ function updateRoomName(roomId, roomNumber, roomBuilding){
     if(err){
     console.log(err)
     }else{
-    console.log("ok");
-    }
-  })
-}
-
-function updateRoomStatus(roomId, bit){
-  //console.log(roomId)
-  console.log(bit)
-//ObjectId("5adf37f01e0a2304acd55aca")
-  dbo.collection('roomstatuses').update({"data.occupys._id":ObjectId(roomId)},{$set:{"data.$.occupys.0.oStatus":bit}},function(err,result){
-  //dbo.collection('roomstatuses').update({"data.occupys._id":'ObjectId("'+roomId+'")'},{$set:{"data.$.occupys.0.oStatus":bit}},function(err,result){
-    if(err){
-    console.log(err)
-    }else{
-    console.log(result)
+    //console.log(result)
     console.log("ok");
     }
   })
@@ -194,6 +203,12 @@ module.exports = {
     },
     updateRoomStatus : function(roomId, bit){
       updateRoomStatus(roomId, bit)
+    },
+     
+    updateRoomName : function(data){
+      var deferred = new promise.Deferred();
+      updateRoomName(data,deferred);
+      return deferred;
     }
 
     
